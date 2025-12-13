@@ -18,6 +18,10 @@ public class ChildUIBinder : NetworkBehaviour
         var setNickName = uiInstance.GetComponent<SetNickName>();
         if(setNickName == null) return;
         setNickName.SetLocalNickName(GetComponent<NetworkedChildObject>().NickName);
+
+        var classCycler = uiInstance.GetComponent<ClassCycler>();
+        if(classCycler == null) return;
+        classCycler.SetInteractable(GetComponent<NetworkedChildObject>().HasInputAuthority);
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState){

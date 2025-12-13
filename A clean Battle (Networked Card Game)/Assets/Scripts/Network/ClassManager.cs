@@ -1,26 +1,37 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using Fusion;
+using Fusion.Sockets;
 
-public class ClassManager : MonoBehaviour
+public class ClassManager : NetworkBehaviour
 {
     public static ClassManager Instance;
-    public UnityEvent OnCycle = new UnityEvent();
 
-    public List<Sprite> classImages;
-    public List<string> classNames;
-    public List<string> classDescriptions;
-    //Position in List = Player position in scene, Value in List = Class index in class list
-    public int[] playerClassMap = new int[4];
-    
+    [Networked, Capacity(4)]
+    public NetworkArray<int> PlayerClasses => default;
 
-    void Awake () {
-        Instance = this;
+    public override void Spawned(){
+        if(Instance == null){
+            Instance = this;
+        }
     }
 
-    public void CyclePlayerClass(int player){
-        //increment class index and call OnCycle event
-        playerClassMap[player] = (playerClassMap[player] + 1) % classImages.Count;
-        OnCycle.Invoke();
+    public void RequestCycle(int playerIndex){
+
+        if(Object.HasStateAuthority){
+            Cycle(playerIndex);
+        } else {
+            RPC_RequestCycle(playerIndex);
+        }
+    }
+
+    private void Cycle(int playerIndex){
+        PlayerClasses.Set(playerIndex, (PlayerClasses[playerIndex] + 1) % ClassDatabase.Instance.ClassCount);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    private void RPC_RequestCycle(int playerIndex){
+        Cycle(playerIndex);
     }
 }

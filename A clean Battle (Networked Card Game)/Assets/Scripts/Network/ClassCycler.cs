@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Fusion;
 
 public class ClassCycler : MonoBehaviour
 {
@@ -11,31 +12,56 @@ public class ClassCycler : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text description;
+    [SerializeField] private Toggle readyToggle;
 
-    private int previousClassIndex = 0;
+    private int previousClassIndex = -1;
     private int player;
 
-    void Awake(){
-        button.onClick.AddListener(() => ClassManager.Instance.CyclePlayerClass(player));
-        //cant use += with unity events
-        ClassManager.Instance.OnCycle.AddListener(UpdateClassImage);
-        player = transform.parent.GetComponent<NetworkParent>().playerIndex;
-        playerNumber.text = player.ToString();
+    private ClassManager manager;
+    private NetworkObject networkObject;
+
+    void Awake()
+    {
+        var parent = transform.parent.GetComponent<NetworkParent>();
+        player = parent.playerIndex;
+
+        manager = ClassManager.Instance;
+
+        networkObject = parent.GetComponent<NetworkObject>();
+        Debug.Log($"[{name}] HasInputAuthority: {networkObject.HasStateAuthority}");
+        // Disable by default until authority is known
+        button.interactable = false;
+
+        button.onClick.AddListener(OnClick);
+    }
+
+    public void SetInteractable(bool interactable){
+        button.interactable = interactable;
+        readyToggle.interactable = interactable;
+    }
+
+    void Update(){
         UpdateClassImage();
     }
 
-    public void UpdateClassImage(){
-        //update if class has changed
-        Debug.Log("Player " + player + " Previous class index: " + previousClassIndex);
-        Debug.Log("Player " + player + " Current class index: " + ClassManager.Instance.playerClassMap[player]);
-        if(previousClassIndex == ClassManager.Instance.playerClassMap[player]) return;
-        previousClassIndex = ClassManager.Instance.playerClassMap[player];
+    private void OnClick(){
+        manager.RequestCycle(player);
+    }
 
-        Debug.Log("Updating class image");
-        //update image, description and title
-        image.sprite = ClassManager.Instance.classImages[previousClassIndex];
-        title.text = ClassManager.Instance.classNames[previousClassIndex];
-        description.text = ClassManager.Instance.classDescriptions[previousClassIndex];
+    private void UpdateClassImage(){
+        if(manager == null) {
+            Debug.Log("Manager is null");
+            return;
+        }
+        int current = manager.PlayerClasses[player];
+        
+        if(previousClassIndex == current) return;
+
+        previousClassIndex = current;
+
+        image.sprite = ClassDatabase.Instance.classImages[current];
+        title.text = ClassDatabase.Instance.classNames[current];
+        description.text = ClassDatabase.Instance.classDescriptions[current];
     }
     
 }
