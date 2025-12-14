@@ -15,6 +15,7 @@ public class ChildUIBinder : NetworkBehaviour
         if(parentUI == null) return;
 
         uiInstance = Instantiate(uiPrefab, parentUI);
+        parent.GetComponent<NetworkParent>().uiObject = uiInstance;
         var setNickName = uiInstance.GetComponent<SetNickName>();
         if(setNickName == null) return;
         setNickName.SetLocalNickName(GetComponent<NetworkedChildObject>().NickName);

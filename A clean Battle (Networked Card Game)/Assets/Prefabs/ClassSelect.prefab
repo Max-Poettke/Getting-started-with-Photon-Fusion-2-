@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 8310413599407680155}
   - component: {fileID: -7419684997344383231}
   - component: {fileID: 8001338930420631286}
+  - component: {fileID: 4841144638908874590}
   m_Layer: 5
   m_Name: ClassSelect
   m_TagString: Untagged
@@ -150,7 +151,21 @@ MonoBehaviour:
   image: {fileID: 5952319336911630326}
   title: {fileID: 5193637218761455476}
   description: {fileID: 4719217887160192108}
-  readyToggle: {fileID: 0}
+  readyToggle: {fileID: 402139541707874339}
+--- !u!114 &4841144638908874590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759087462237796873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1a74f5b64308941b3f07519db9bc43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReadyToggleUI
+  toggle: {fileID: 402139541707874339}
+  classSelectButton: {fileID: 8494528924880843197}
 --- !u!1 &1785093620319457281
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2455778821883444433}
   m_Layer: 5
-  m_Name: ButtonParent
+  m_Name: ToggleParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -708,7 +723,7 @@ GameObject:
   - component: {fileID: 5952319336911630326}
   - component: {fileID: 8494528924880843197}
   m_Layer: 5
-  m_Name: CharacterArt
+  m_Name: ClassSelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1460,7 +1475,7 @@ GameObject:
   - component: {fileID: 2133632292854128597}
   - component: {fileID: 5159825992481027642}
   m_Layer: 5
-  m_Name: CharacterArtBG
+  m_Name: ClassSelectBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

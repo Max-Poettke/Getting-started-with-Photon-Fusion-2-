@@ -20,7 +20,7 @@ public class ClassCycler : MonoBehaviour
     private ClassManager manager;
     private NetworkObject networkObject;
 
-    void Awake()
+    void Start()
     {
         var parent = transform.parent.GetComponent<NetworkParent>();
         player = parent.playerIndex;
@@ -30,7 +30,6 @@ public class ClassCycler : MonoBehaviour
         networkObject = parent.GetComponent<NetworkObject>();
         Debug.Log($"[{name}] HasInputAuthority: {networkObject.HasStateAuthority}");
         // Disable by default until authority is known
-        button.interactable = false;
 
         button.onClick.AddListener(OnClick);
     }

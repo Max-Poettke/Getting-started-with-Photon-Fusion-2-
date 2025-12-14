@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6283538191963871820}
   - component: {fileID: 3159381661943015440}
   - component: {fileID: 3378533194849157280}
+  - component: {fileID: 7625926186410152393}
+  - component: {fileID: -1101994817845499453}
   m_Layer: 0
   m_Name: Prototype Runner
   m_TagString: Untagged
@@ -114,3 +116,30 @@ MonoBehaviour:
   OnObjectExitAOI:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7625926186410152393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5835089867088385070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a93abf1a391964a94e5c139605105b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Unity::Fusion.NetworkSceneManagerDefault
+  IsSceneTakeOverEnabled: 1
+  LogSceneLoadErrors: 1
+  DestroySpawnedPrefabsOnSceneUnload: 0
+--- !u!114 &-1101994817845499453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5835089867088385070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d566a5646e7bc44891a3415647ea831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
