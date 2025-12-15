@@ -14,4 +14,20 @@ public static class LocalPlayerData
             return nickName;
         }
     }
+
+    private static int playerRoomID;
+    public static int PlayerRoomID{
+        set => playerRoomID = value;
+        get {
+            return playerRoomID;
+        }
+    }
+
+    private static int playerClass;
+    public static int PlayerClass {
+        set => playerClass = value;
+        get {
+            return playerClass;
+        }
+    }
 }

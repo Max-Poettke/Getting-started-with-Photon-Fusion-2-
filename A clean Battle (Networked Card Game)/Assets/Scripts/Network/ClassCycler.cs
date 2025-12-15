@@ -19,15 +19,16 @@ public class ClassCycler : MonoBehaviour
 
     private ClassManager manager;
     private NetworkObject networkObject;
+    private NetworkParent networkParent;
 
     void Start()
     {
-        var parent = transform.parent.GetComponent<NetworkParent>();
-        player = parent.playerIndex;
+        networkParent = transform.parent.GetComponent<NetworkParent>();
+        player = networkParent.playerIndex;
 
         manager = ClassManager.Instance;
 
-        networkObject = parent.GetComponent<NetworkObject>();
+        networkObject = networkParent.Object;
         Debug.Log($"[{name}] HasInputAuthority: {networkObject.HasStateAuthority}");
         // Disable by default until authority is known
 
@@ -56,6 +57,7 @@ public class ClassCycler : MonoBehaviour
         
         if(previousClassIndex == current) return;
 
+        networkParent.SelectedClass = current;
         previousClassIndex = current;
 
         image.sprite = ClassDatabase.Instance.classImages[current];

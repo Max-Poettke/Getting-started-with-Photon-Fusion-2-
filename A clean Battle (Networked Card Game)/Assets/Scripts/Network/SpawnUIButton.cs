@@ -19,6 +19,7 @@ public class SpawnUIButton : MonoBehaviour
             var child = obj.GetComponent<NetworkedChildObject>();
             child.Parent = ParentNetworkObject.Object;
             child.NickName = LocalPlayerData.NickName;
+            LocalPlayerData.PlayerRoomID = ParentNetworkObject.playerIndex;
         });
     }
 }

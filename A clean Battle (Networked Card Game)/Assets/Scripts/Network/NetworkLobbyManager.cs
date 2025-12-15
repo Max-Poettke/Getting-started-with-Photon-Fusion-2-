@@ -10,7 +10,6 @@ public class NetworkLobbyManager : NetworkBehaviour
 
     private NetworkRunner runner;
     [SerializeField] private NetworkPrefabRef networkGameStatePrefab;
-    private NetworkGameState gameState;
     
     public override void Spawned(){
         if(Instance == null){
@@ -22,11 +21,6 @@ public class NetworkLobbyManager : NetworkBehaviour
 
         runner = FindObjectOfType<NetworkRunner>();
         if(runner == null) return;
-
-        if(runner.IsSceneAuthority){
-            runner.Spawn(networkGameStatePrefab);
-            gameState = FindObjectOfType<NetworkGameState>();
-        }
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -56,10 +50,6 @@ public class NetworkLobbyManager : NetworkBehaviour
     public void StartGame(){
         if(!Object.HasStateAuthority) return;
         Debug.Log("Starting game!");
-        foreach(var player in FindObjectsOfType<NetworkParent>()){
-            Debug.Log("Setting player " + player.playerIndex + " class to " + player.SelectedClass);
-            gameState.PlayerClasses.Set(player.playerIndex, player.SelectedClass);
-        }
         EnableStartGame(false);
         RPC_StartGame();
         LoadScene();
@@ -73,7 +63,11 @@ public class NetworkLobbyManager : NetworkBehaviour
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     private void RPC_StartGame(){
-        
-        Debug.Log("Notifying everyone of game start");
+        foreach(var playerParent in FindObjectsOfType<NetworkParent>()){            
+            if(playerParent.playerIndex == LocalPlayerData.PlayerRoomID){
+                LocalPlayerData.PlayerClass = playerParent.SelectedClass;
+            }
+        }
+        Debug.Log("Player " + LocalPlayerData.PlayerRoomID + " is player " + LocalPlayerData.PlayerClass);
     }
 }
