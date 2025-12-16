@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
+    public CardVisual cardVisual;
     private Selectable selectable;
     private SlotManager slotManager;
     private RectTransform cursor;
@@ -59,20 +60,25 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnPointerEnter(PointerEventData eventData){
+        if(isDragging) return;
         OnPointerEnterEvent.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData){
+        if(isDragging) return;
         OnPointerExitEvent.Invoke();
     }
 
     public void OnPointerDown(PointerEventData eventData){
+        if(isDragging) return;
         OnPointerDownEvent.Invoke();
     }
 
     public void OnPointerUp(PointerEventData eventData){
+        
         selected = !selected;
         PositionCard();
+        if(isDragging) return;
         OnPointerUpEvent.Invoke();
     }
 
@@ -99,7 +105,11 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void PositionCard(){
         transform.localPosition = Vector3.zero;
         if(selected){
-            transform.localPosition += Vector3.up * 10f;
+            transform.localPosition += Vector3.up * 50f;
         }
+    }
+
+    void OnDestroy(){
+        slotManager.RemoveCard(this);
     }
 }

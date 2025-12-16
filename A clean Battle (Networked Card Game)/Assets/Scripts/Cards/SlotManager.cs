@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SlotManager : MonoBehaviour
 {
     public static SlotManager Instance;
     public List<Transform> Slots;
     public List<Card> Cards;
+    public List<CardVisual> CardVisuals;
     
     [SerializeField] private GameObject cardVisualPrefab;
     [SerializeField] private Transform cardVisualParent;
@@ -13,10 +15,13 @@ public class SlotManager : MonoBehaviour
     private Card hoveredCard;
     private Card draggedCard;
 
+    public bool isDragging = false;
+
     void Awake(){
         if(Instance == null){
             Instance = this;
         }
+        DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(200, 10);
     }
 
     public void AddCard(Card card){
@@ -29,17 +34,34 @@ public class SlotManager : MonoBehaviour
 
         //create card visual
         CardVisual cardVisual = Instantiate(cardVisualPrefab, cardVisualParent).GetComponent<CardVisual>();
+        CardVisuals.Add(cardVisual);
+        card.cardVisual = cardVisual;
         cardVisual.target = card;
+        card.OnBeginDragEvent.AddListener(() => cardVisual.OnDragEnter());
+        card.OnEndDragEvent.AddListener(() => cardVisual.OnDragExit());
+        card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
+        card.OnPointerExitEvent.AddListener(() => cardVisual.OnHoverExit());
+        card.OnPointerUpEvent.AddListener(() => cardVisual.OnSelect());
+    }
+
+    public void RemoveCard(Card card){
+        Cards.Remove(card);
+        Slots.Remove(card.transform.parent);
+        CardVisuals.Remove(card.cardVisual);
+        Destroy(card.cardVisual.gameObject);
+        Destroy(card.transform.parent.gameObject);
     }
 
     public void BeginDrag(Card card){
         draggedCard = card;
+        isDragging = true;
         Debug.Log("Dragging card: " + draggedCard.name);
     }
 
     public void EndDrag(Card card){
         Debug.Log("End dragging card: " + card.name);
         draggedCard = null;
+        isDragging = false;
     }
 
     public void CardPointerEnter(Card card){
@@ -52,6 +74,24 @@ public class SlotManager : MonoBehaviour
 
     public void Update(){
         UpdateSlots();
+        UpdateCardVisualLayering();
+    }
+    
+    public void PushcardVisualToTop(CardVisual cardVisual){
+        CardVisuals.Remove(cardVisual);
+        CardVisuals.Add(cardVisual);
+
+        for(int i = 0; i < CardVisuals.Count; i++){
+            CardVisuals[i].transform.SetSiblingIndex(i);
+        }
+    }
+
+    public void UpdateCardVisualLayering(){
+        if(isDragging) return;
+        CardVisuals.Sort((a, b) => a.target.transform.parent.position.x.CompareTo(b.target.transform.parent.position.x));
+        for(int i = 0; i < CardVisuals.Count; i++){
+            CardVisuals[i].transform.SetSiblingIndex(i);
+        }
     }
 
     public void UpdateSlots(){

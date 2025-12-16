@@ -226,12 +226,23 @@ PrefabInstance:
     - target: {fileID: 7982702231815747555, guid: a12bad9da97c3d941b798565ad240557, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 19627864}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a12bad9da97c3d941b798565ad240557, type: 3}
+--- !u!114 &19627864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 543707249538615802, guid: a12bad9da97c3d941b798565ad240557, type: 3}
+  m_PrefabInstance: {fileID: 18904942}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &118696944
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +788,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464925109}
   m_CullTransparentMesh: 1
+--- !u!114 &645338241 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 543707249538615802, guid: a12bad9da97c3d941b798565ad240557, type: 3}
+  m_PrefabInstance: {fileID: 815123090}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &774034172 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6577403265183724499, guid: a12bad9da97c3d941b798565ad240557, type: 3}
@@ -889,7 +911,7 @@ PrefabInstance:
     - target: {fileID: 7982702231815747555, guid: a12bad9da97c3d941b798565ad240557, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 645338241}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -944,6 +966,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &871226325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 543707249538615802, guid: a12bad9da97c3d941b798565ad240557, type: 3}
+  m_PrefabInstance: {fileID: 2328775975904372061}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &910899560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,8 +1289,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1656514063}
-  - {fileID: 1066969523}
   - {fileID: 1701199304}
+  - {fileID: 1066969523}
   - {fileID: 464925110}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1534,7 +1567,7 @@ PrefabInstance:
     - target: {fileID: 7982702231815747555, guid: a12bad9da97c3d941b798565ad240557, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1461925331}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1586,6 +1619,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1461925331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 543707249538615802, guid: a12bad9da97c3d941b798565ad240557, type: 3}
+  m_PrefabInstance: {fileID: 1448243859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1468244904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,6 +1639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1468244905}
+  - component: {fileID: 1468244906}
   m_Layer: 5
   m_Name: CardVisuals
   m_TagString: Untagged
@@ -1621,6 +1666,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 250, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &1468244906
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468244904}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1524037166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,7 +2169,7 @@ PrefabInstance:
     - target: {fileID: 7982702231815747555, guid: a12bad9da97c3d941b798565ad240557, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 871226325}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
