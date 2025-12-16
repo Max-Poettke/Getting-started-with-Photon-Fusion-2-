@@ -29,33 +29,92 @@ public class CardVisual : MonoBehaviour
 
     
 
-    public void OnDragEnter(){
-        transform.DOScale(scaleOnSelect, 0.1f);
-        shadowTransform.DOLocalMove(new Vector3(50f, -50f, 0), 0.1f, false);
+    private Quaternion baseShakeRotation;
+
+    private void Awake()
+    {
+        baseShakeRotation = shakeTransform.localRotation;
+    }
+
+    private void KillScaleTween()
+    {
+        transform.DOKill();
+    }
+
+    private void KillShakeTween()
+    {
+        shakeTransform.DOKill();
+        shakeTransform.localRotation = baseShakeRotation;
+    }
+
+    public void OnDragEnter()
+    {
+        KillScaleTween();
+        KillShakeTween();
+
+        transform
+            .DOScale(scaleOnSelect, 0.1f);
+
+        shadowTransform
+            .DOLocalMove(new Vector3(50f, -50f, 0), 0.1f, false);
+
         SlotManager.Instance.PushcardVisualToTop(this);
     }
 
-    public void OnDragExit(){
-        transform.DOScale(1, 0.1f);
-        shadowTransform.DOLocalMove(new Vector3(5f, -5f, 0), 0.1f, false);
-        shakeTransform.DOShakeRotation(0.3f, shakeAxis * 10f, 10, 90f);
+    public void OnDragExit()
+    {
+        KillScaleTween();
+        KillShakeTween();
+
+        transform
+            .DOScale(1f, 0.1f);
+
+        shadowTransform
+            .DOLocalMove(new Vector3(5f, -5f, 0), 0.1f, false);
+
+        Shake(0.3f, 10f);
     }
 
-    public void OnHoverEnter(){
-        transform.DOScale(scaleOnHover, 0.1f).SetEase(Ease.OutBack);
-        shakeTransform.DOShakeRotation(0.1f, shakeAxis * 10f, 10, 50f);
+    public void OnHoverEnter()
+    {
+        KillScaleTween();
+        KillShakeTween();
+
+        transform
+            .DOScale(scaleOnHover, 0.1f)
+            .SetEase(Ease.OutBack);
+
+        Shake(0.1f, 10f);
     }
 
-    public void OnHoverExit(){
-        transform.DOScale(1, 0.1f).SetEase(Ease.InBack);
-        shakeTransform.DOShakeRotation(0.1f, shakeAxis * 10f, 10, 50f);
+    public void OnHoverExit()
+    {
+        KillScaleTween();
+        KillShakeTween();
+
+        transform
+            .DOScale(1f, 0.1f)
+            .SetEase(Ease.InBack);
+
+        Shake(0.1f, 10f);
     }
 
-    public void OnSelect(){
-        shakeTransform.DOShakeRotation(0.1f, shakeAxis * 10f, 10, 50f);
+    public void OnSelect()
+    {
+        KillShakeTween();
+        Shake(0.1f, 10f);
     }
 
-    public void OnDeselect(){
+    private void Shake(float duration, float strength)
+    {
+        shakeTransform
+            .DOShakeRotation(
+                duration,
+                shakeAxis * strength,
+                vibrato: 10,
+                randomness: 50f
+            )
+            .SetEase(Ease.OutQuad);
     }
 
     // Update is called once per frame
