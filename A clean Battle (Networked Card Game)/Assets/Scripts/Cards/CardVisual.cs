@@ -7,6 +7,7 @@ public class CardVisual : MonoBehaviour
 {
     [Header("References")]
     public Card target;
+    public Image image;
     [SerializeField] private LayoutElement layoutElement;
     [SerializeField] private Transform shakeTransform;
     [SerializeField] private Transform tiltTransform;
@@ -17,13 +18,15 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private float followSpeed = 0.07f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float distanceBeforeRealign = 10f;
+    [SerializeField] private float distanceOnHover = 10f;
     private Vector3 direction;
     private float targetAngle;
     private Vector3 shakeAxis = new Vector3(0, 0, 1);
+    private bool isHovered = false;
     
 
     [Header("Scale Params")]
-    [SerializeField] private float scaleOnHover = 1.07f;
+    [SerializeField] private float scaleOnHover = 1.1f;
     [SerializeField] private float scaleOnSelect = 1.2f;
 
 
@@ -49,6 +52,8 @@ public class CardVisual : MonoBehaviour
 
     public void OnDragEnter()
     {
+        isHovered = false;
+        SlotManager.Instance.isHovered = false;
         KillScaleTween();
         KillShakeTween();
 
@@ -77,6 +82,11 @@ public class CardVisual : MonoBehaviour
 
     public void OnHoverEnter()
     {
+        if(SlotManager.Instance.isDragging) return;
+        SlotManager.Instance.UpdateCardVisualLayering();
+        isHovered = true;
+        SlotManager.Instance.isHovered = true;
+        SlotManager.Instance.PushcardVisualToTop(this);
         KillScaleTween();
         KillShakeTween();
 
@@ -89,6 +99,8 @@ public class CardVisual : MonoBehaviour
 
     public void OnHoverExit()
     {
+        isHovered = false;
+        SlotManager.Instance.isHovered = false;
         KillScaleTween();
         KillShakeTween();
 
@@ -120,9 +132,21 @@ public class CardVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(target == null) return;
+        CheckHomePosition();
+        CheckHomeRotation();
+        if((target == null || isHovered) && CheckHomePosition() && CheckHomeRotation()) return;
         LerpPosition();
         LerpRotation();
+    }
+
+    private bool CheckHomePosition(){
+        if(Vector3.Distance(transform.position, target.transform.position) < 0.1f) return true;
+        return false;
+    } 
+
+    private bool CheckHomeRotation(){
+        if(Quaternion.Angle(transform.rotation, target.transform.rotation) < 0.1f) return true;
+        return false;
     }
 
     private void LerpPosition(){

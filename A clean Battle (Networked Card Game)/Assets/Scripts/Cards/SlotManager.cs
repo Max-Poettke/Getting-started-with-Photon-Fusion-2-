@@ -8,6 +8,7 @@ public class SlotManager : MonoBehaviour
     public List<Transform> Slots;
     public List<Card> Cards;
     public List<CardVisual> CardVisuals;
+    public List<ScriptableCard> scriptableCards;
     
     [SerializeField] private GameObject cardVisualPrefab;
     [SerializeField] private Transform cardVisualParent;
@@ -15,6 +16,7 @@ public class SlotManager : MonoBehaviour
     private Card hoveredCard;
     private Card draggedCard;
 
+    public bool isHovered = false;
     public bool isDragging = false;
 
     void Awake(){
@@ -37,6 +39,10 @@ public class SlotManager : MonoBehaviour
         CardVisuals.Add(cardVisual);
         card.cardVisual = cardVisual;
         cardVisual.target = card;
+        
+        var randomCard = scriptableCards[Random.Range(0, scriptableCards.Count)];
+
+        cardVisual.image.sprite = randomCard.MainImage;
         card.OnBeginDragEvent.AddListener(() => cardVisual.OnDragEnter());
         card.OnEndDragEvent.AddListener(() => cardVisual.OnDragExit());
         card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
@@ -74,6 +80,7 @@ public class SlotManager : MonoBehaviour
 
     public void Update(){
         UpdateSlots();
+        if(isDragging || isHovered) return;
         UpdateCardVisualLayering();
     }
     
@@ -87,7 +94,6 @@ public class SlotManager : MonoBehaviour
     }
 
     public void UpdateCardVisualLayering(){
-        if(isDragging) return;
         CardVisuals.Sort((a, b) => a.target.transform.parent.position.x.CompareTo(b.target.transform.parent.position.x));
         for(int i = 0; i < CardVisuals.Count; i++){
             CardVisuals[i].transform.SetSiblingIndex(i);

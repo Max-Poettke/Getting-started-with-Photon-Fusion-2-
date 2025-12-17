@@ -105,7 +105,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void PositionCard(){
         transform.localPosition = Vector3.zero;
         if(selected){
-            transform.localPosition += Vector3.up * 50f;
+            transform.localPosition += Vector3.up * 300f;
         }
     }
 
