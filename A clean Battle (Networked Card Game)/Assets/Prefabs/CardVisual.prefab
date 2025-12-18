@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8643108648752606156}
   - component: {fileID: 4059864589808587276}
   - component: {fileID: 8340678789810373012}
+  - component: {fileID: 5381646548983189665}
   m_Layer: 5
   m_Name: CardMain
   m_TagString: Untagged
@@ -77,6 +78,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5381646548983189665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498874619066902109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
+  theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
+  type: 0
 --- !u!1 &680239436652342473
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +103,7 @@ GameObject:
   - component: {fileID: 7332262985579181421}
   - component: {fileID: 6042745861845627470}
   - component: {fileID: 2132544234745795885}
+  - component: {fileID: 1295052577711768283}
   m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -214,6 +230,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1295052577711768283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680239436652342473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
+  theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
+  type: 2
 --- !u!1 &1067902530390517926
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +292,7 @@ GameObject:
   - component: {fileID: 5226284372083021152}
   - component: {fileID: 1618663357404681978}
   - component: {fileID: 3357319467522464995}
+  - component: {fileID: 3183969972596974327}
   m_Layer: 5
   m_Name: TextBG
   m_TagString: Untagged
@@ -327,6 +358,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3183969972596974327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159802559321720987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
+  theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
+  type: 0
 --- !u!1 &1677395801813697297
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +383,7 @@ GameObject:
   - component: {fileID: 615310752712732986}
   - component: {fileID: 3779961623146077253}
   - component: {fileID: 7802305938561520954}
+  - component: {fileID: 8819921230132030230}
   m_Layer: 5
   m_Name: Cost
   m_TagString: Untagged
@@ -402,6 +448,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8819921230132030230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677395801813697297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
+  theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
+  type: 3
 --- !u!1 &5091140966231937994
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +509,7 @@ GameObject:
   - component: {fileID: 8947152410033943483}
   - component: {fileID: 8973259635500466872}
   - component: {fileID: 3604354688665667374}
+  - component: {fileID: 9153577790480910637}
   m_Layer: 5
   m_Name: Threat
   m_TagString: Untagged
@@ -513,6 +574,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9153577790480910637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6064939702730508842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
+  theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
+  type: 4
 --- !u!1 &6170488617253368708
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +682,7 @@ GameObject:
   - component: {fileID: 7910352046596089859}
   - component: {fileID: 9203378703811026260}
   - component: {fileID: 3649160156839569779}
+  - component: {fileID: 2992806941818712462}
   m_Layer: 5
   m_Name: MainImage
   m_TagString: Untagged
@@ -673,6 +749,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2992806941818712462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6662323547443705550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
+  theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
+  type: 0
 --- !u!1 &7793371823193473027
 GameObject:
   m_ObjectHideFlags: 0

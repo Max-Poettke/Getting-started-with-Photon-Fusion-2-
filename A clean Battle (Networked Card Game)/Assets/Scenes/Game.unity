@@ -1165,6 +1165,7 @@ GameObject:
   - component: {fileID: 1045518459}
   - component: {fileID: 1045518458}
   - component: {fileID: 1045518462}
+  - component: {fileID: 1045518463}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1271,6 +1272,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   canvas: {fileID: 1045518460}
+--- !u!114 &1045518463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045518457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4db1c5b93d812f4580a06a2c0223e31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThemeManager
+  activeTheme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
 --- !u!1 &1066969522
 GameObject:
   m_ObjectHideFlags: 0
