@@ -13,9 +13,9 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private Canvas canvas;
     private Vector3 mouseCardOffset;
 
-    private bool selected;
+    public bool selected;
 
-    private bool isDragging = false;
+    public bool isDragging = false;
 
     //an event for each PointerEvent
 
@@ -105,7 +105,8 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void PositionCard(){
         transform.localPosition = Vector3.zero;
         if(selected){
-            transform.localPosition += Vector3.up * 300f;
+            transform.localPosition += Vector3.up * 300f - Vector3.up * transform.parent.position.y;
+            //transform.localRotation = new Quaternion(0, 0, Mathf.DeltaAngle(0f, transform.parent.localRotation.eulerAngles.z), 0);
         }
     }
 

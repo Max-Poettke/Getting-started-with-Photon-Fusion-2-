@@ -39,6 +39,11 @@ public class CardVisual : MonoBehaviour
         baseShakeRotation = shakeTransform.localRotation;
     }
 
+    private void Start()
+    {
+        ThemeManager.Instance.ApplyTheme();
+    }
+
     private void KillScaleTween()
     {
         transform.DOKill();
@@ -132,8 +137,6 @@ public class CardVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckHomePosition();
-        CheckHomeRotation();
         if((target == null || isHovered) && CheckHomePosition() && CheckHomeRotation()) return;
         LerpPosition();
         LerpRotation();
@@ -145,7 +148,7 @@ public class CardVisual : MonoBehaviour
     } 
 
     private bool CheckHomeRotation(){
-        if(Quaternion.Angle(transform.rotation, target.transform.rotation) < 0.1f) return true;
+        if(Quaternion.Angle(transform.rotation, target.transform.parent.rotation) < 0.1f) return true;
         return false;
     }
 
@@ -161,7 +164,7 @@ public class CardVisual : MonoBehaviour
             targetAngle = Mathf.Clamp(Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg / 3f, -maxAngle, maxAngle);
         } else {
             direction = Vector3.zero;
-            targetAngle = 0;
+            targetAngle = -Mathf.DeltaAngle(0f, target.transform.parent.rotation.eulerAngles.z);
         }
 
         var currentAngle = Mathf.Atan2(transform.up.x, transform.up.y) * Mathf.Rad2Deg;
@@ -170,3 +173,4 @@ public class CardVisual : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, newAngle);
     }
 }
+

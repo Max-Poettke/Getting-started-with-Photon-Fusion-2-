@@ -15,6 +15,8 @@ MonoBehaviour:
   MainImage: {fileID: 21300000, guid: ac2bf0211515e0d4da991d924cc751ed, type: 3}
   Cost: 1
   Threat: 2
-  shield: 3
-  attack: 0
-  target: 0
+  Shield: 0
+  Attack: 0
+  Health: 0
+  primaryTarget: 0
+  secondaryTarget: 4

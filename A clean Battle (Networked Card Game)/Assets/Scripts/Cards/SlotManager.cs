@@ -5,6 +5,8 @@ using DG.Tweening;
 public class SlotManager : MonoBehaviour
 {
     public static SlotManager Instance;
+    public AnimationCurve VerticalOffsetCurve;
+    public AnimationCurve AngleCurve;
     public List<Transform> Slots;
     public List<Card> Cards;
     public List<CardVisual> CardVisuals;
@@ -48,6 +50,10 @@ public class SlotManager : MonoBehaviour
         card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
         card.OnPointerExitEvent.AddListener(() => cardVisual.OnHoverExit());
         card.OnPointerUpEvent.AddListener(() => cardVisual.OnSelect());
+    }
+
+    public void Start(){
+        SetSlotPositionAndRotation();
     }
 
     public void RemoveCard(Card card){
@@ -116,6 +122,15 @@ public class SlotManager : MonoBehaviour
                 }
             }
         }
+        SetSlotPositionAndRotation();
+    }
+
+    public void SetSlotPositionAndRotation(){
+        for(int i = 0; i < Cards.Count; i++){
+            float sampleSpot = (float)i / (Slots.Count - 1);
+            Slots[i].localPosition = new Vector3(Slots[i].localPosition.x, VerticalOffsetCurve.Evaluate(sampleSpot), Slots[i].localPosition.z);
+            Slots[i].rotation = Quaternion.Euler(0, 0, AngleCurve.Evaluate(sampleSpot));
+        }
     }
 
     private void Swap(int index){
@@ -126,6 +141,8 @@ public class SlotManager : MonoBehaviour
         draggedCard.transform.parent = Cards[index].transform.parent;
         draggedCard.transform.localPosition -= new Vector3(distanceBetweenParents, 0, 0);
         Cards[index].transform.parent = draggedParent;
+        Cards[index].transform.localRotation = Quaternion.Euler(0, 0, 0);
+        draggedCard.transform.localRotation = Quaternion.Euler(0, 0, 0);
         Cards[index].PositionCard();
         draggedCard.PositionCard();
     }

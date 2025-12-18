@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d7e63af371045142b9f6e97e899014e, type: 3}
-  m_Name: 1Pastel
+  m_Name: 1Robot
   m_EditorClassIdentifier: Assembly-CSharp::Theme
-  MainColor: {r: 0.6666667, g: 0.8745099, b: 0.9803922, a: 1}
-  SecondaryColor: {r: 0.8196079, g: 0.9568628, b: 0.8705883, a: 1}
-  TextColor: {r: 0.9921569, g: 0.9686275, b: 0.7411765, a: 1}
-  ActionColor: {r: 0.9921569, g: 0.9686275, b: 0.7411765, a: 1}
-  ThreatColor: {r: 1, g: 0.6039216, b: 0.7843138, a: 1}
+  MainColor: {r: 0, g: 0.24705884, b: 0.12941177, a: 1}
+  SecondaryColor: {r: 0.44705886, g: 0.7294118, b: 0.6117647, a: 1}
+  TextColor: {r: 0.93725497, g: 0.14117648, b: 0.23529413, a: 1}
+  ActionColor: {r: 0.93725497, g: 0.14117648, b: 0.23529413, a: 1}
+  ThreatColor: {r: 0.85098046, g: 0.007843138, b: 0.16078432, a: 1}
