@@ -1,14 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
+using UnityEngine.UI;
 
 public class SlotManager : MonoBehaviour
 {
     public static SlotManager Instance;
+    [Header("Hand")]
     public AnimationCurve VerticalOffsetCurve;
     public AnimationCurve AngleCurve;
     public List<Transform> Slots;
     public List<Card> Cards;
+
+    [Header("Playarea")]
+    public Transform playArea;
+    public GameObject SlotParentPrefab;
+    public List<Transform> PlaySlots;
+    public List<Card> PlayedCards;
+
     public List<CardVisual> CardVisuals;
     public List<ScriptableCard> scriptableCards;
     
@@ -17,6 +27,8 @@ public class SlotManager : MonoBehaviour
 
     private Card hoveredCard;
     private Card draggedCard;
+    private Card playEnabledCard;
+    private Transform playEnabledParentParent;
 
     public bool isHovered = false;
     public bool isDragging = false;
@@ -29,8 +41,6 @@ public class SlotManager : MonoBehaviour
     }
 
     public void AddCard(Card card){
-        Cards.Add(card);
-        Slots.Add(card.transform.parent);
         card.OnBeginDragEvent.AddListener(() => BeginDrag(card));
         card.OnEndDragEvent.AddListener(() => EndDrag(card));
         card.OnPointerEnterEvent.AddListener(() => CardPointerEnter(card));
@@ -50,9 +60,18 @@ public class SlotManager : MonoBehaviour
         card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
         card.OnPointerExitEvent.AddListener(() => cardVisual.OnHoverExit());
         card.OnPointerUpEvent.AddListener(() => cardVisual.OnSelect());
+        StartCoroutine(ApplyLayoutNextFrame());
     }
 
-    public void Start(){
+    private IEnumerator ApplyLayoutNextFrame()
+    {
+        yield return null;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(
+            transform as RectTransform
+        );
+
+        RebuildSlotsFromHierarchy();
         SetSlotPositionAndRotation();
     }
 
@@ -62,6 +81,7 @@ public class SlotManager : MonoBehaviour
         CardVisuals.Remove(card.cardVisual);
         Destroy(card.cardVisual.gameObject);
         Destroy(card.transform.parent.gameObject);
+        StartCoroutine(ApplyLayoutNextFrame());
     }
 
     public void BeginDrag(Card card){
@@ -74,6 +94,7 @@ public class SlotManager : MonoBehaviour
         Debug.Log("End dragging card: " + card.name);
         draggedCard = null;
         isDragging = false;
+        TryPlayCard(card);
     }
 
     public void CardPointerEnter(Card card){
@@ -110,8 +131,14 @@ public class SlotManager : MonoBehaviour
         if(draggedCard == null) return;
         var draggedCardParent = draggedCard.transform.parent;
 
-        for(int i = 0; i < Cards.Count; i++){
+        if(draggedCard.transform.position.y > 400){
+            EnablePlayCard(draggedCard);
+            return;
+        }
 
+        DisablePlayCard();
+
+        for(int i = 0; i < Cards.Count; i++){
             if(draggedCardParent.position.x < Cards[i].transform.parent.position.x){
                 if(draggedCard.transform.position.x > Cards[i].transform.position.x){
                     Swap(i);
@@ -122,16 +149,77 @@ public class SlotManager : MonoBehaviour
                 }
             }
         }
-        SetSlotPositionAndRotation();
+        StartCoroutine(ApplyLayoutNextFrame());
     }
 
-    public void SetSlotPositionAndRotation(){
-        for(int i = 0; i < Cards.Count; i++){
-            float sampleSpot = (float)i / (Slots.Count - 1);
-            Slots[i].localPosition = new Vector3(Slots[i].localPosition.x, VerticalOffsetCurve.Evaluate(sampleSpot), Slots[i].localPosition.z);
-            Slots[i].rotation = Quaternion.Euler(0, 0, AngleCurve.Evaluate(sampleSpot));
+    public void EnablePlayCard(Card card){
+        playEnabledCard = card;
+        playEnabledParentParent = card.transform.parent.parent;
+    }
+
+    public void DisablePlayCard(){
+        playEnabledCard = null;
+        playEnabledParentParent = null;
+    }
+
+    public void TryPlayCard(Card card){
+        if(playEnabledCard != card) return;
+        var slotParent = Instantiate(SlotParentPrefab, playArea);
+        card.transform.parent.parent = slotParent.transform;
+        card.transform.parent.localPosition = Vector3.zero;
+        card.transform.parent.localRotation = Quaternion.Euler(0, 0, 0);
+        card.transform.parent.localScale = Vector3.one;
+        Slots.Remove(card.transform.parent);
+        Cards.Remove(card);
+        PlayedCards.Add(card);
+        PlaySlots.Add(card.transform.parent);
+        Destroy(playEnabledParentParent.gameObject);
+
+        card.PlayCard();
+        DisablePlayCard();
+        StartCoroutine(ApplyLayoutNextFrame());
+    }
+
+    public void SetSlotPositionAndRotation()
+    {
+        int count = Slots.Count;
+        if (count == 0) return;
+
+        for (int i = 0; i < count; i++)
+        {
+            float t = (count == 1) ? 0.5f : (float)i / (count - 1);
+
+            Slots[i].localPosition = new Vector3(
+                Slots[i].localPosition.x, // owned by layout group
+                VerticalOffsetCurve.Evaluate(t),
+                Slots[i].localPosition.z
+            );
+
+            Slots[i].localRotation = Quaternion.Euler(
+                0,
+                0,
+                -AngleCurve.Evaluate(t)
+            );
         }
     }
+
+    private void RebuildSlotsFromHierarchy()
+    {
+        Slots.Clear();
+        Cards.Clear();
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var slotParent = transform.GetChild(i);
+            var card = slotParent.GetComponentInChildren<Card>();
+
+            if (card == null) continue;
+
+            Slots.Add(slotParent);
+            Cards.Add(card);
+        }
+    }
+
 
     private void Swap(int index){
         if(draggedCard == null) return;

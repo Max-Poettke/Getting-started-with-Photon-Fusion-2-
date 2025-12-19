@@ -7,14 +7,16 @@ using UnityEngine.Events;
 public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
     public CardVisual cardVisual;
+    private ICard cardLogic;
     private Selectable selectable;
     private SlotManager slotManager;
     private RectTransform cursor;
     private Canvas canvas;
     private Vector3 mouseCardOffset;
 
-    public bool selected;
 
+    private bool isPlayed = false;
+    public bool selected;
     public bool isDragging = false;
 
     //an event for each PointerEvent
@@ -33,9 +35,11 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         slotManager = SlotManager.Instance;
         slotManager.AddCard(this);
         selectable = GetComponent<Selectable>();
+        cardLogic = GetComponent<ICard>();
     }
 
     public void OnBeginDrag(PointerEventData eventData){
+        if(isPlayed) return;
         isDragging = true;
         selected = !selected;
         mouseCardOffset = transform.position - GetScreenPosition();
@@ -43,6 +47,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnEndDrag(PointerEventData eventData){
+        if(isPlayed) return;
         isDragging = false;
         if(transform.parent != null){
             PositionCard();
@@ -51,6 +56,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnDrag(PointerEventData eventData){
+        if(isPlayed) return;
         if(isDragging){
             Vector3 cardPos2D = GetScreenPosition() + mouseCardOffset;
 
@@ -70,12 +76,13 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnPointerDown(PointerEventData eventData){
+        if(isPlayed) return;
         if(isDragging) return;
         OnPointerDownEvent.Invoke();
     }
 
     public void OnPointerUp(PointerEventData eventData){
-        
+        if(isPlayed) return;
         selected = !selected;
         PositionCard();
         if(isDragging) return;
@@ -107,6 +114,16 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         if(selected){
             transform.localPosition += Vector3.up * 300f - Vector3.up * transform.parent.position.y;
             //transform.localRotation = new Quaternion(0, 0, Mathf.DeltaAngle(0f, transform.parent.localRotation.eulerAngles.z), 0);
+        }
+    }
+
+    public void PlayCard(){
+        isPlayed = true;
+        selected = false;
+        transform.localPosition = Vector3.zero;
+        cardVisual.OnPlay();
+        if(cardLogic != null){
+            cardLogic.PlayCard();
         }
     }
 

@@ -26,11 +26,17 @@ public class CardVisual : MonoBehaviour
     
 
     [Header("Scale Params")]
+    [SerializeField] private float scaleDefault = 1f;
     [SerializeField] private float scaleOnHover = 1.1f;
     [SerializeField] private float scaleOnSelect = 1.2f;
+    [SerializeField] private float scaleOnPlay = 0.7f;
 
 
     
+    public void ChangeScaleOnPlay(float newValue){
+        scaleOnHover = newValue * scaleOnHover;
+        scaleDefault = newValue * scaleDefault;
+    }
 
     private Quaternion baseShakeRotation;
 
@@ -55,6 +61,15 @@ public class CardVisual : MonoBehaviour
         shakeTransform.localRotation = baseShakeRotation;
     }
 
+    public void OnPlay(){
+        ChangeScaleOnPlay(scaleOnPlay);
+        KillScaleTween();
+        KillShakeTween();
+
+        transform
+            .DOScale(scaleDefault, 0.1f);
+    }
+
     public void OnDragEnter()
     {
         isHovered = false;
@@ -77,7 +92,7 @@ public class CardVisual : MonoBehaviour
         KillShakeTween();
 
         transform
-            .DOScale(1f, 0.1f);
+            .DOScale(scaleDefault, 0.1f);
 
         shadowTransform
             .DOLocalMove(new Vector3(5f, -5f, 0), 0.1f, false);
@@ -110,7 +125,7 @@ public class CardVisual : MonoBehaviour
         KillShakeTween();
 
         transform
-            .DOScale(1f, 0.1f)
+            .DOScale(scaleDefault, 0.1f)
             .SetEase(Ease.InBack);
 
         Shake(0.1f, 10f);
