@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Cards/Bash")]
 public class Bash : ScriptableCard
 {
+    public int ActionCost;
     public int AttackWithShield;
     public int AttackWithoutShield;
     public int Threat;
@@ -14,6 +15,7 @@ public class Bash : ScriptableCard
             context.enemy.TakeDamage(AttackWithShield);
         }
         context.player.AddThreatStack(Threat, 0);
+        context.player.UseAction(ActionCost);
     }
 }
 

@@ -18,7 +18,7 @@ public class GamePlayState : MonoBehaviour
     public EnemyState EnemyState;
 
     private GamePhase currentPhase;
-    private GameState currentState;
+    public GameState CurrentState;
     private Dictionary<GameState, GamePhase> phases;
 
     private void Awake()
@@ -61,12 +61,12 @@ public class GamePlayState : MonoBehaviour
     {
         currentPhase?.Exit();
         currentPhase = phases[newState];
-        currentState = newState;
+        CurrentState = newState;
         currentPhase.Enter();
     }
 
     public void ChangeToNextState(){
-        ChangeState(currentState + 1);
+        ChangeState(CurrentState + 1);
     }
 
     public PlayerState GetPlayerWithHighestThreat()

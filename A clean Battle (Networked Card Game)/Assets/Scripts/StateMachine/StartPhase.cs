@@ -10,5 +10,6 @@ public class StartPhase : GamePhase
         // Enemy spawns
         // Enemy displays turns
         // Players spawn
+        GamePlayState.Instance.PlayerStates.ForEach(x => x.Initialize());
     }
 }

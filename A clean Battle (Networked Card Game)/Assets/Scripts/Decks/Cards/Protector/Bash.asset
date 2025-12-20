@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bash
   MainImage: {fileID: 21300000, guid: 52010908ca646f84f98ca999e7a63abf, type: 3}
   cardName: Bash
+  cardDescription: If you have no SHIELD, deal 2 DAMAGE. Else deal 1 DAMAGE
   Cost: 1
+  ActionCost: 1
   AttackWithShield: 1
   AttackWithoutShield: 2
   Threat: 1

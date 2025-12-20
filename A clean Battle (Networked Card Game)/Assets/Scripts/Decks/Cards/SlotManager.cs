@@ -8,6 +8,7 @@ public class SlotManager : MonoBehaviour
 {
     public static SlotManager Instance;
     [Header("Hand")]
+    [SerializeField] private Transform handParent;
     public AnimationCurve VerticalOffsetCurve;
     public AnimationCurve AngleCurve;
     public List<Transform> Slots;
@@ -16,14 +17,18 @@ public class SlotManager : MonoBehaviour
     [Header("Playarea")]
     public Transform playArea;
     public Transform playedCardVisualParent;
-    public GameObject SlotParentPrefab;
     public List<Transform> PlaySlots;
     public List<Card> PlayedCards;
 
+    [Header("Card Visuals")]
     public List<CardVisual> CardVisuals;
-    
-    [SerializeField] private GameObject cardVisualPrefab;
     [SerializeField] private Transform cardVisualParent;
+
+    [Header("Prefabs")]
+    [SerializeField] private GameObject SlotParentPrefab;
+    [SerializeField] private GameObject CardSlotPrefab;
+    [SerializeField] private GameObject CardLogicPrefab;
+    [SerializeField] private GameObject cardVisualPrefab;
 
     private Card hoveredCard;
     private Card draggedCard;
@@ -38,6 +43,16 @@ public class SlotManager : MonoBehaviour
             Instance = this;
         }
         DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(200, 10);
+    }
+
+    public void SpawnCardWithParents(ScriptableCard cardData, PlayerState playerOwner){
+        var _slotParent = Instantiate(SlotParentPrefab, handParent);
+        var _cardSlot = Instantiate(CardSlotPrefab, _slotParent.transform);
+        //var _cardLogic = Instantiate(CardLogicPrefab, _cardSlot.transform);
+        var _cardLogic = _cardSlot.transform.GetChild(0).gameObject;
+        Card spawnedCard = _cardLogic.GetComponent<Card>(); 
+        AddCard(spawnedCard);
+        spawnedCard.Initialize(cardData, playerOwner);
     }
 
     public void AddCard(Card card){
@@ -70,7 +85,7 @@ public class SlotManager : MonoBehaviour
         yield return null;
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(
-            transform as RectTransform
+            handParent as RectTransform
         );
 
         RebuildSlotsFromHierarchy();
@@ -133,7 +148,7 @@ public class SlotManager : MonoBehaviour
         if(draggedCard == null) return;
         var draggedCardParent = draggedCard.transform.parent;
 
-        if(draggedCard.transform.position.y > 400){
+        if(draggedCard.transform.position.y > 300){
             EnablePlayCard(draggedCard);
             return;
         }
@@ -165,7 +180,11 @@ public class SlotManager : MonoBehaviour
     }
 
     public void TryPlayCard(Card card){
+        if(GamePlayState.Instance.CurrentState != GamePlayState.GameState.PlayerTurn) return;
         if(playEnabledCard != card) return;
+        if(card.CardData.Cost > playEnabledCard.PlayerOwner.Actions){
+            return;
+        }
         var slotParent = Instantiate(SlotParentPrefab, playArea);
         card.transform.parent.parent = slotParent.transform;
         card.transform.parent.localPosition = Vector3.zero;
@@ -206,14 +225,26 @@ public class SlotManager : MonoBehaviour
         }
     }
 
+    public void ClearPlayedCards(){
+        foreach(var card in PlayedCards){
+            PlayedCards.Remove(card);
+            PlaySlots.Remove(card.transform.parent);
+            CardVisuals.Remove(card.cardVisual);
+            Destroy(card.cardVisual.gameObject);
+            Destroy(card.transform.parent.gameObject);
+            StartCoroutine(ApplyLayoutNextFrame());
+        }
+        
+    }
+
     private void RebuildSlotsFromHierarchy()
     {
         Slots.Clear();
         Cards.Clear();
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < handParent.childCount; i++)
         {
-            var slotParent = transform.GetChild(i);
+            var slotParent = handParent.GetChild(i);
             var card = slotParent.GetComponentInChildren<Card>();
 
             if (card == null) continue;

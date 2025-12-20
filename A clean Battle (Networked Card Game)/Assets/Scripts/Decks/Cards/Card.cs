@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
     public CardVisual cardVisual;
-    private ICard cardLogic;
+    public ScriptableCard CardData{get; private set;} 
+    public PlayerState PlayerOwner {get; private set;}
     private Selectable selectable;
     private SlotManager slotManager;
     private RectTransform cursor;
@@ -29,13 +30,19 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public UnityEvent OnPointerDownEvent = new UnityEvent();
     public UnityEvent OnPointerUpEvent = new UnityEvent();
 
+    public void Initialize(ScriptableCard data, PlayerState playerOwner){
+        CardData = data;
+        PlayerOwner = playerOwner;
+        cardVisual.image.sprite = data.MainImage;
+        cardVisual.cardName.text = data.cardName;
+        cardVisual.cardDescription.text = data.cardDescription;
+    }
 
     private void Start(){
         canvas = UISingleton.Instance.canvas;
         slotManager = SlotManager.Instance;
-        slotManager.AddCard(this);
+        //slotManager.AddCard(this);
         selectable = GetComponent<Selectable>();
-        cardLogic = GetComponent<ICard>();
     }
 
     public void OnBeginDrag(PointerEventData eventData){
@@ -122,8 +129,8 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         selected = false;
         transform.localPosition = Vector3.zero;
         cardVisual.OnPlay();
-        if(cardLogic != null){
-            cardLogic.PlayCard();
+        if(CardData is not null){
+            CardData.Resolve(new CardContext(PlayerOwner, GamePlayState.Instance.EnemyState, GamePlayState.Instance));
         }
     }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 
 public class CardVisual : MonoBehaviour
@@ -8,6 +9,8 @@ public class CardVisual : MonoBehaviour
     [Header("References")]
     public Card target;
     public Image image;
+    public TMP_Text cardName;
+    public TMP_Text cardDescription;
     [SerializeField] private LayoutElement layoutElement;
     [SerializeField] private Transform shakeTransform;
     [SerializeField] private Transform tiltTransform;
