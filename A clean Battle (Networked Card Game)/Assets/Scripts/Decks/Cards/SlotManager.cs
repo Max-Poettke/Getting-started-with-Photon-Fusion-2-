@@ -15,12 +15,12 @@ public class SlotManager : MonoBehaviour
 
     [Header("Playarea")]
     public Transform playArea;
+    public Transform playedCardVisualParent;
     public GameObject SlotParentPrefab;
     public List<Transform> PlaySlots;
     public List<Card> PlayedCards;
 
     public List<CardVisual> CardVisuals;
-    public List<ScriptableCard> scriptableCards;
     
     [SerializeField] private GameObject cardVisualPrefab;
     [SerializeField] private Transform cardVisualParent;
@@ -52,9 +52,11 @@ public class SlotManager : MonoBehaviour
         card.cardVisual = cardVisual;
         cardVisual.target = card;
         
+        /* place to spawn a card
         var randomCard = scriptableCards[Random.Range(0, scriptableCards.Count)];
 
         cardVisual.image.sprite = randomCard.MainImage;
+        */
         card.OnBeginDragEvent.AddListener(() => cardVisual.OnDragEnter());
         card.OnEndDragEvent.AddListener(() => cardVisual.OnDragExit());
         card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
@@ -173,6 +175,7 @@ public class SlotManager : MonoBehaviour
         Cards.Remove(card);
         PlayedCards.Add(card);
         PlaySlots.Add(card.transform.parent);
+        card.cardVisual.transform.SetParent(playedCardVisualParent);
         Destroy(playEnabledParentParent.gameObject);
 
         card.PlayCard();

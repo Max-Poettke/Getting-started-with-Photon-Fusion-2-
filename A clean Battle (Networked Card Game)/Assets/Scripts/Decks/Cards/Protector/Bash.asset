@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49d8217266dc1a14ab6efb37e5c8e235, type: 3}
+  m_Script: {fileID: 11500000, guid: 29633e1c6f8308f4795d5a1406797e0f, type: 3}
   m_Name: Bash
-  m_EditorClassIdentifier: Assembly-CSharp::ScriptableCard
+  m_EditorClassIdentifier: Assembly-CSharp::Bash
   MainImage: {fileID: 21300000, guid: 52010908ca646f84f98ca999e7a63abf, type: 3}
+  cardName: Bash
   Cost: 1
+  AttackWithShield: 1
+  AttackWithoutShield: 2
   Threat: 1
-  Shield: 0
-  Attack: 0
-  Health: 0
-  primaryTarget: 1
-  secondaryTarget: 4

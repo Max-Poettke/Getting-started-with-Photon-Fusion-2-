@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerState : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class PlayerState : MonoBehaviour
     public int Threat = 0;
     public int Actions = 2;
     public int Class = 0; // 0 = Protector, 1 = Fighter, 2 = Support, 3 = Rogue
+    public DeckData deck;
     public List<PoisonStack> poisonStacks;
     public List<ShieldStack> shieldStacks;
     public List<ThreatStack> threatStacks;
@@ -21,8 +24,28 @@ public class PlayerState : MonoBehaviour
     public event Action OnTakeDamage;
     public event Action OnDie;
 
+    [Header("UI Components")]
+    [SerializeField] private Slider healthSlider;
+    [SerializeField] private TMP_Text healthText;
+    [SerializeField] private Transform shieldPosition;
+    [SerializeField] private Transform poisonPosition;
+    [SerializeField] private Transform threatPosition;
+
+    [Header("Prefabs")]
+    [SerializeField] private GameObject shieldPrefab;
+    [SerializeField] private GameObject poisonPrefab;
+    [SerializeField] private GameObject threatPrefab;
+
+    private void Start(){
+        healthSlider.maxValue = MaxHealth;
+        healthSlider.value = Health;
+        healthText.text = Health.ToString();
+    }
+
     public void TakeDamage(int _damageAmount){
         Health -= _damageAmount;
+        healthSlider.value = Health;
+        healthText.text = Health.ToString();
         OnTakeDamage?.Invoke();
         if(Health <= 0){
             Die();
