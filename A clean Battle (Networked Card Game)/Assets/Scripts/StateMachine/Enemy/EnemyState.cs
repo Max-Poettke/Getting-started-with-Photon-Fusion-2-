@@ -10,11 +10,38 @@ public class EnemyState : MonoBehaviour
     public List<PoisonStack> poisonStacks;
     public List<ShieldStack> shieldStacks;
     public List<ThreatStack> threatStacks;
+    public DeckData deck;
 
     public bool IsAlive = true;
 
     public event Action OnTakeDamage;
     public event Action OnDie;
+
+    public void Initialize(){
+        if(deck.Cards.Count == 0) {
+            Debug.LogError("No cards in deck");
+            return;
+        }
+        for(int i = 0; i < 3; i++){
+            DrawCard();
+        }
+    }
+
+    public void Play(float delay){
+        Invoke("PlayCard", delay);
+    }
+
+    public void PlayCard(){
+        SlotManager.Instance.EnemyPlayCard(deck.Cards[UnityEngine.Random.Range(0, deck.Cards.Count)]);
+    }
+
+    public void DrawCard(){
+        if(deck.Cards.Count == 0) {
+            Debug.LogError("No cards in deck");
+            return;
+        }
+        SlotManager.Instance.SpawnEnemyCard(deck.Cards[UnityEngine.Random.Range(0, deck.Cards.Count)]);
+    }
 
     public void TakeDamage(int _damageAmount){
         Health -= _damageAmount;

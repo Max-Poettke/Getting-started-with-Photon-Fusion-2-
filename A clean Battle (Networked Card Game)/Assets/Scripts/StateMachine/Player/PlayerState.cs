@@ -55,7 +55,11 @@ public class PlayerState : MonoBehaviour
     }
 
     public void DrawCard(){
-        SlotManager.Instance.SpawnCardWithParents(deck.cards[UnityEngine.Random.Range(0, deck.cards.Count)], this);
+        if(deck.Cards.Count == 0) {
+            Debug.LogError("No cards in deck");
+            return;
+        }
+        SlotManager.Instance.SpawnCardWithParents(deck.Cards[UnityEngine.Random.Range(0, deck.Cards.Count)], this);
     }
 
     public void UseAction(int amount){

@@ -19,6 +19,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private bool isPlayed = false;
     public bool selected;
     public bool isDragging = false;
+    private bool isEnemyCard = false;
 
     //an event for each PointerEvent
 
@@ -31,8 +32,13 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public UnityEvent OnPointerUpEvent = new UnityEvent();
 
     public void Initialize(ScriptableCard data, PlayerState playerOwner){
+        if(playerOwner == null) {
+            isEnemyCard = true;
+        } else {
+            PlayerOwner = playerOwner;
+        }
+
         CardData = data;
-        PlayerOwner = playerOwner;
         cardVisual.image.sprite = data.MainImage;
         cardVisual.cardName.text = data.cardName;
         cardVisual.cardDescription.text = data.cardDescription;
@@ -46,7 +52,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnBeginDrag(PointerEventData eventData){
-        if(isPlayed) return;
+        if(isPlayed || isEnemyCard) return;
         isDragging = true;
         selected = !selected;
         mouseCardOffset = transform.position - GetScreenPosition();
@@ -54,7 +60,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnEndDrag(PointerEventData eventData){
-        if(isPlayed) return;
+        if(isPlayed || isEnemyCard) return;
         isDragging = false;
         if(transform.parent != null){
             PositionCard();
@@ -63,7 +69,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnDrag(PointerEventData eventData){
-        if(isPlayed) return;
+        if(isPlayed || isEnemyCard) return;
         if(isDragging){
             Vector3 cardPos2D = GetScreenPosition() + mouseCardOffset;
 
@@ -83,13 +89,13 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     public void OnPointerDown(PointerEventData eventData){
-        if(isPlayed) return;
+        if(isPlayed || isEnemyCard) return;
         if(isDragging) return;
         OnPointerDownEvent.Invoke();
     }
 
     public void OnPointerUp(PointerEventData eventData){
-        if(isPlayed) return;
+        if(isPlayed || isEnemyCard) return;
         selected = !selected;
         PositionCard();
         if(isDragging) return;
@@ -128,13 +134,18 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         isPlayed = true;
         selected = false;
         transform.localPosition = Vector3.zero;
-        cardVisual.OnPlay();
+        if(isEnemyCard){
+            cardVisual.OnPlay(1f / 0.7f);
+        } else {
+            cardVisual.OnPlay();
+        }
         if(CardData is not null){
             CardData.Resolve(new CardContext(PlayerOwner, GamePlayState.Instance.EnemyState, GamePlayState.Instance));
         }
     }
 
     void OnDestroy(){
+        if(slotManager == null) return;
         slotManager.RemoveCard(this);
     }
 }

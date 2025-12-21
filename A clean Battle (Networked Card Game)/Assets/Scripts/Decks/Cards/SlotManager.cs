@@ -30,6 +30,12 @@ public class SlotManager : MonoBehaviour
     [SerializeField] private GameObject CardLogicPrefab;
     [SerializeField] private GameObject cardVisualPrefab;
 
+    [Header("Enemy hand")]
+    [SerializeField] private List<Transform> enemyHandSlots;
+    public List<Card> EnemyCards;
+    [SerializeField] private Transform enemyCardVisualParent;
+    public List<CardVisual> EnemyCardVisuals;
+
     private Card hoveredCard;
     private Card draggedCard;
     private Card playEnabledCard;
@@ -45,17 +51,50 @@ public class SlotManager : MonoBehaviour
         DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(200, 10);
     }
 
+    public void SpawnEnemyCard(ScriptableCard cardData){
+        Transform _slotParent = null;
+        foreach(var slotParent in enemyHandSlots){
+            Debug.Log("Slot parent child count: " + slotParent.childCount);
+            if(slotParent.childCount == 0){
+                _slotParent = slotParent;
+                break;
+            }
+        }
+
+        if(_slotParent == null) return;
+
+        var _cardSlot = Instantiate(CardSlotPrefab, _slotParent.transform);
+        _cardSlot.transform.localPosition = Vector3.one;
+        var _cardLogic = _cardSlot.transform.GetChild(0).gameObject;
+        Card spawnedCard = _cardLogic.GetComponent<Card>();
+        EnemyCards.Add(spawnedCard);
+        AddEnemyCard(spawnedCard, cardData);
+    }
+
+    public void AddEnemyCard(Card card, ScriptableCard cardData){
+        CardVisual cardVisual = Instantiate(cardVisualPrefab, enemyCardVisualParent).GetComponent<CardVisual>();
+        cardVisual.transform.localScale = Vector3.one * 0.5f;
+        card.cardVisual = cardVisual;
+        cardVisual.target = card;
+        cardVisual.image.sprite = cardData.MainImage;
+        cardVisual.cardName.text = cardData.cardName;
+        cardVisual.cardDescription.text = cardData.cardDescription;
+        cardVisual.ChangeScaleOnPlay(0.5f);
+        card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
+        card.OnPointerExitEvent.AddListener(() => cardVisual.OnHoverExit());
+        card.Initialize(cardData, null);
+    }
+
     public void SpawnCardWithParents(ScriptableCard cardData, PlayerState playerOwner){
         var _slotParent = Instantiate(SlotParentPrefab, handParent);
         var _cardSlot = Instantiate(CardSlotPrefab, _slotParent.transform);
         //var _cardLogic = Instantiate(CardLogicPrefab, _cardSlot.transform);
         var _cardLogic = _cardSlot.transform.GetChild(0).gameObject;
         Card spawnedCard = _cardLogic.GetComponent<Card>(); 
-        AddCard(spawnedCard);
-        spawnedCard.Initialize(cardData, playerOwner);
+        AddCard(spawnedCard, cardData, playerOwner);
     }
 
-    public void AddCard(Card card){
+    public void AddCard(Card card, ScriptableCard cardData, PlayerState playerOwner){
         card.OnBeginDragEvent.AddListener(() => BeginDrag(card));
         card.OnEndDragEvent.AddListener(() => EndDrag(card));
         card.OnPointerEnterEvent.AddListener(() => CardPointerEnter(card));
@@ -77,6 +116,7 @@ public class SlotManager : MonoBehaviour
         card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
         card.OnPointerExitEvent.AddListener(() => cardVisual.OnHoverExit());
         card.OnPointerUpEvent.AddListener(() => cardVisual.OnSelect());
+        card.Initialize(cardData, playerOwner);
         StartCoroutine(ApplyLayoutNextFrame());
     }
 
@@ -202,6 +242,36 @@ public class SlotManager : MonoBehaviour
         StartCoroutine(ApplyLayoutNextFrame());
     }
 
+    public void EnemyPlayCard(ScriptableCard _cardToSpawnAfter) {
+        if(GamePlayState.Instance.CurrentState != GamePlayState.GameState.EnemyTurn) return;
+        if(EnemyCards.Count == 0) return;
+        var card = EnemyCards[0];
+
+        var slotParent = Instantiate(SlotParentPrefab, playArea);
+        card.transform.parent.parent = slotParent.transform;
+        card.transform.parent.localPosition = Vector3.zero;
+        card.transform.parent.localRotation = Quaternion.Euler(0, 0, 0);
+        card.transform.parent.localScale = Vector3.one;
+        card.cardVisual.transform.SetParent(playedCardVisualParent);
+        EnemyCards.Remove(card);
+        
+        card.PlayCard();
+        ReadjustEnemyCards(_cardToSpawnAfter);
+    }
+
+    private void ReadjustEnemyCards(ScriptableCard _cardToSpawnAfter){
+        //move cards down to fill gap 
+        if(EnemyCards.Count == 3) return;
+        for(int i = 0; i < EnemyCards.Count; i++){
+            EnemyCards[i].transform.parent.parent = enemyHandSlots[i].transform;
+            EnemyCards[i].transform.parent.localPosition = Vector3.zero;
+
+        }
+        if(_cardToSpawnAfter != null){
+            SpawnEnemyCard(_cardToSpawnAfter);
+        }
+    }
+
     public void SetSlotPositionAndRotation()
     {
         int count = Slots.Count;
@@ -227,13 +297,13 @@ public class SlotManager : MonoBehaviour
 
     public void ClearPlayedCards(){
         foreach(var card in PlayedCards){
-            PlayedCards.Remove(card);
             PlaySlots.Remove(card.transform.parent);
             CardVisuals.Remove(card.cardVisual);
             Destroy(card.cardVisual.gameObject);
-            Destroy(card.transform.parent.gameObject);
+            Destroy(card.transform.parent.parent.gameObject);
             StartCoroutine(ApplyLayoutNextFrame());
         }
+        PlayedCards.Clear();
         
     }
 

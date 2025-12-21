@@ -32,7 +32,6 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private float scaleDefault = 1f;
     [SerializeField] private float scaleOnHover = 1.1f;
     [SerializeField] private float scaleOnSelect = 1.2f;
-    [SerializeField] private float scaleOnPlay = 0.7f;
 
 
     
@@ -64,7 +63,7 @@ public class CardVisual : MonoBehaviour
         shakeTransform.localRotation = baseShakeRotation;
     }
 
-    public void OnPlay(){
+    public void OnPlay(float scaleOnPlay = 0.7f){
         ChangeScaleOnPlay(scaleOnPlay);
         KillScaleTween();
         KillShakeTween();

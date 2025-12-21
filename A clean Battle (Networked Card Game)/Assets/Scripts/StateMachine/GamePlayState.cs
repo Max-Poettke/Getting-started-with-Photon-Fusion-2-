@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class GamePlayState : MonoBehaviour
 {
@@ -14,9 +15,14 @@ public class GamePlayState : MonoBehaviour
         End
     }
 
+    public event Action OnStateChanged = () => { };
+
     public List<PlayerState> PlayerStates;
     public EnemyState EnemyState;
 
+    public TurnCard MainTurnCard;
+    public TurnCard WinTurnCard;
+    public TurnCard LoseTurnCard;
     private GamePhase currentPhase;
     public GameState CurrentState;
     private Dictionary<GameState, GamePhase> phases;
@@ -63,6 +69,7 @@ public class GamePlayState : MonoBehaviour
         currentPhase = phases[newState];
         CurrentState = newState;
         currentPhase.Enter();
+        OnStateChanged?.Invoke();
     }
 
     public void ChangeToNextState(){

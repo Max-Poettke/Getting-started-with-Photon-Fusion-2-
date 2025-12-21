@@ -10,5 +10,7 @@ public class PlayerTurnPhase : GamePhase
         // Conditions applied
         // Shields drop
         // Cards drawn
+        GamePlayState.Instance.MainTurnCard.InitializeTurnCard("Player Turn");
+        GamePlayState.Instance.MainTurnCard.gameObject.SetActive(true);
     }
 }

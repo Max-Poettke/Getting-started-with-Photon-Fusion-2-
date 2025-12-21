@@ -46,6 +46,7 @@ public class ThemeGuide : MonoBehaviour
         // TMP SDF handling
         if (tmp != null)
         {
+            if(tmp.fontMaterial == null) return;
             ApplyToTMP(tmp, color);
             return;
         }
