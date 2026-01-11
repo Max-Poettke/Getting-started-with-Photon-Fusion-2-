@@ -23,7 +23,7 @@ public class TurnCard : MonoBehaviour
     //text scales down from 1.5 to 1 with ease out
 
     private void OnEnable() {
-        DOTween.KillAll();
+        //DOTween.KillAll();
         mainImage.color = new Color(mainImage.color.r, mainImage.color.g, mainImage.color.b, 0);
         mainImage.transform.localScale = new Vector3(1, 0, 1);
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
@@ -49,7 +49,7 @@ public class TurnCard : MonoBehaviour
 
     //fade all to 0 and scale to 0.7
     public void BeforeDisable(){
-        DOTween.KillAll();
+        //DOTween.KillAll();
 
         mainImage
             .DOFade(0, 0.3f);

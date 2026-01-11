@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4059864589808587276}
   - component: {fileID: 8340678789810373012}
   - component: {fileID: 5381646548983189665}
+  - component: {fileID: 4988709195116403331}
   m_Layer: 5
   m_Name: CardMain
   m_TagString: Untagged
@@ -92,6 +93,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
   theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
   type: 1
+--- !u!225 &4988709195116403331
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498874619066902109}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &680239436652342473
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +487,7 @@ GameObject:
   - component: {fileID: 3267804263673399119}
   - component: {fileID: 2511731644983944811}
   - component: {fileID: 8632620725366825862}
+  - component: {fileID: 3521650269975216460}
   m_Layer: 5
   m_Name: CardBG
   m_TagString: Untagged
@@ -552,6 +566,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
   theme: {fileID: 11400000, guid: 11d47bec8c1b57343949507895d97dae, type: 2}
   type: 1
+--- !u!225 &3521650269975216460
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3663001393160430963}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5091140966231937994
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,18 +936,17 @@ MonoBehaviour:
   tiltTransform: {fileID: 7887767120799939825}
   shadowTransform: {fileID: 5123778510476872673}
   flipTransform: {fileID: 8661211459443771967}
-  baseVisualTransfrom: {fileID: 8643108648752606156}
+  baseVisualTransform: {fileID: 8643108648752606156}
   backVisualTransform: {fileID: 3833548892856712180}
   maxAngle: 70
   followSpeed: 0.07
   rotationSpeed: 10
   distanceBeforeRealign: 10
-  distanceOnHover: 300
   flipDuration: 0.5
   scaleDefault: 1
   scaleOnHover: 1.07
   scaleOnSelect: 1.2
-  scaleOnFlip: 1.1
+  isFlipped: 1
 --- !u!1 &6190847398734584056
 GameObject:
   m_ObjectHideFlags: 0

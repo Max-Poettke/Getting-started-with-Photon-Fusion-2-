@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-
 public class CardVisual : MonoBehaviour
 {
     [Header("References")]
@@ -11,13 +10,13 @@ public class CardVisual : MonoBehaviour
     public Image image;
     public TMP_Text cardName;
     public TMP_Text cardDescription;
+
     [SerializeField] private LayoutElement layoutElement;
     [SerializeField] private Transform shakeTransform;
     [SerializeField] private Transform tiltTransform;
     [SerializeField] private Transform shadowTransform;
     [SerializeField] private Transform flipTransform;
-
-    [SerializeField] private Transform baseVisualTransfrom;
+    [SerializeField] private Transform baseVisualTransform;
     [SerializeField] private Transform backVisualTransform;
 
     [Header("Movement Values")]
@@ -25,66 +24,27 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private float followSpeed = 0.07f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float distanceBeforeRealign = 10f;
-    [SerializeField] private float distanceOnHover = 10f;
     [SerializeField] private float flipDuration = 0.5f;
-    private Vector3 direction;
-    private float targetAngle;
-    private Vector3 shakeAxis = new Vector3(0, 0, 1);
-    private bool isHovered = false;
-    
 
-    [Header("Scale Params")]
+    [Header("Scale Values")]
     [SerializeField] private float scaleDefault = 1f;
     [SerializeField] private float scaleOnHover = 1.1f;
     [SerializeField] private float scaleOnSelect = 1.2f;
-    [SerializeField] private float scaleOnFlip = 1.1f;
 
     public bool isFlipped = true;
 
-    //tweens
+    private bool isHovered;
+
+    private Vector3 direction;
+    private float targetAngle;
+    private readonly Vector3 shakeAxis = new Vector3(0, 0, 1);
+    private Quaternion baseShakeRotation;
+
+    // Tweens
     private Tween scaleTween;
     private Tween shakeTween;
-    private Tween flipTween;
     private Tween shadowTween;
-    private Tween flipRotationTween;
-
-    private bool flipCompletedNaturally = false;
-
-    public void CardFlip(){
-        Debug.Log("Flipping card: " + target.name);
-        KillScaleTween();
-        KillShakeTween();
-        KillFlipTween();
-        flipRotationTween = flipTransform.DOLocalRotate(new Vector3(0f,90f,0f), flipDuration / 2)
-            .OnComplete(() => flipCompletedNaturally = true)
-            .OnKill(() => {
-                if(!flipCompletedNaturally){
-                    flipRotationTween.Complete();
-                }
-                flipCompletedNaturally = false;
-            })
-            .OnComplete(FinishFlip);
-    }
-    private void FinishFlip(){
-        if(isFlipped){
-            baseVisualTransfrom.gameObject.SetActive(true);
-            backVisualTransform.gameObject.SetActive(false);
-        } else {
-            baseVisualTransfrom.gameObject.SetActive(false);
-            backVisualTransform.gameObject.SetActive(true);
-        }
-        isFlipped = !isFlipped;
-        flipRotationTween = flipTransform.DOLocalRotate(new Vector3(0f,0f,0f), flipDuration / 2).SetEase(Ease.OutQuad);
-    }
-
-
-    
-    public void ChangeScaleOnPlay(float newValue){
-        scaleOnHover = newValue * scaleOnHover;
-        scaleDefault = newValue * scaleDefault;
-    }
-
-    private Quaternion baseShakeRotation;
+    private Tween flipTween;
 
     private void Awake()
     {
@@ -97,156 +57,209 @@ public class CardVisual : MonoBehaviour
         CardFlip();
     }
 
-    private void KillScaleTween()
+    // ==============================
+    // Tween Utilities
+    // ==============================
+
+    private void KillTween(ref Tween tween, bool complete = true)
     {
-        scaleTween?.Kill();
+        if (tween == null || !tween.IsActive()) return;
+
+        if (complete)
+            tween.Complete();
+        else
+            tween.Kill();
+
+        tween = null;
     }
 
-    private void KillShakeTween()
+    private void SetScale(float value, float duration, Ease ease)
     {
-        shakeTween?.Kill();
-        shakeTransform.localRotation = baseShakeRotation;
+        KillTween(ref scaleTween);
+        scaleTween = transform
+            .DOScale(value, duration)
+            .SetEase(ease)
+            .SetUpdate(true);
     }
 
-    private void KillShadowTween()
+    private void StartShake(float duration, float strength)
     {
-        shadowTween?.Kill();
+        KillTween(ref shakeTween, complete: false);
+
+        shakeTween = shakeTransform
+            .DOShakeRotation(duration, shakeAxis * strength, 10, 50f)
+            .SetEase(Ease.OutQuad)
+            .OnKill(() => shakeTransform.localRotation = baseShakeRotation);
     }
 
-    private void KillFlipTween()
-    {
-        flipTween?.Kill();
-        flipRotationTween?.Kill();
-    }
+    // ==============================
+    // 🔹 PUBLIC API (RESTORED)
+    // ==============================
 
-    public void OnPlay(float scaleOnPlay = 0.7f){
+    /// <summary>
+    /// Called when a card enters play.
+    /// </summary>
+    public void OnPlay(float scaleOnPlay = 0.7f)
+    {
         ChangeScaleOnPlay(scaleOnPlay);
-        KillScaleTween();
-        //KillShakeTween();
-
-        scaleTween = transform
-            .DOScale(scaleDefault, 0.1f);
+        SetScale(scaleDefault, 0.1f, Ease.OutQuad);
     }
 
-    public void OnDragEnter()
+    /// <summary>
+    /// Adjusts base scaling when card is played.
+    /// </summary>
+    public void ChangeScaleOnPlay(float multiplier)
     {
-        isHovered = false;
-        SlotManager.Instance.isHovered = false;
-        KillScaleTween();
-        KillShakeTween();
-        KillShadowTween();
-
-        scaleTween = transform
-            .DOScale(scaleOnSelect, 0.1f);
-
-        shadowTween = shadowTransform
-            .DOLocalMove(new Vector3(50f, -50f, 0), 0.1f, false);
-
-        SlotManager.Instance.PushcardVisualToTop(this);
+        scaleDefault *= multiplier;
+        scaleOnHover *= multiplier;
+        scaleOnSelect *= multiplier;
     }
 
-    public void OnDragExit()
+    /// <summary>
+    /// Called when card is selected.
+    /// </summary>
+    public void OnSelect()
     {
-        KillScaleTween();
-        KillShakeTween();
-        KillShadowTween();
-
-        scaleTween = transform
-            .DOScale(scaleDefault, 0.1f);
-
-        shadowTween = shadowTransform
-            .DOLocalMove(new Vector3(5f, -5f, 0), 0.1f, false);
-
-        Shake(0.3f, 10f);
+        StartShake(0.15f, 12f);
     }
+
+    // ==============================
+    // Hover / Drag
+    // ==============================
 
     public void OnHoverEnter()
     {
-        if(SlotManager.Instance.isDragging) return;
-        SlotManager.Instance.UpdateCardVisualLayering();
+        if (SlotManager.Instance.isDragging) return;
+
         isHovered = true;
         SlotManager.Instance.isHovered = true;
         SlotManager.Instance.PushcardVisualToTop(this);
-        KillScaleTween();
-        KillShakeTween();
 
-        scaleTween = transform
-            .DOScale(scaleOnHover, 0.1f)
-            .SetEase(Ease.OutBack);
-
-        Shake(0.1f, 10f);
+        SetScale(scaleOnHover, 0.12f, Ease.OutBack);
+        StartShake(0.1f, 10f);
     }
 
     public void OnHoverExit()
     {
         isHovered = false;
         SlotManager.Instance.isHovered = false;
-        KillScaleTween();
-        KillShakeTween();
 
-        scaleTween = transform
-            .DOScale(scaleDefault, 0.1f)
-            .SetEase(Ease.InBack);
-
-        Shake(0.1f, 10f);
+        SetScale(scaleDefault, 0.1f, Ease.InBack);
+        StartShake(0.1f, 8f);
     }
 
-    public void OnSelect()
+    public void OnDragEnter()
     {
-        KillShakeTween();
-        Shake(0.1f, 10f);
+        isHovered = false;
+        SlotManager.Instance.isHovered = false;
+
+        KillTween(ref shakeTween);
+        KillTween(ref shadowTween);
+
+        SetScale(scaleOnSelect, 0.1f, Ease.OutQuad);
+
+        shadowTween = shadowTransform
+            .DOLocalMove(new Vector3(50f, -50f, 0f), 0.1f)
+            .SetUpdate(true);
+
+        SlotManager.Instance.PushcardVisualToTop(this);
     }
 
-    private void Shake(float duration, float strength)
+    public void OnDragExit()
     {
-        shakeTween = shakeTransform
-            .DOShakeRotation(
-                duration,
-                shakeAxis * strength,
-                vibrato: 10,
-                randomness: 50f
-            )
-            .SetEase(Ease.OutQuad);
+        KillTween(ref shakeTween);
+        KillTween(ref shadowTween);
+
+        SetScale(scaleDefault, 0.1f, Ease.OutQuad);
+
+        shadowTween = shadowTransform
+            .DOLocalMove(new Vector3(5f, -5f, 0f), 0.1f)
+            .SetUpdate(true);
+
+        StartShake(0.2f, 10f);
     }
 
-    // Update is called once per frame
-    void Update()
+    // ==============================
+    // Flip
+    // ==============================
+
+    public void CardFlip()
+    {
+        KillTween(ref flipTween, complete: false);
+
+        flipTween = flipTransform
+            .DOLocalRotate(new Vector3(0f, 90f, 0f), flipDuration / 2)
+            .SetEase(Ease.InQuad)
+            .OnComplete(FinishFlip);
+    }
+
+    private void FinishFlip()
+    {
+        Debug.Log("finishing flip");
+        baseVisualTransform.gameObject.GetComponent<CanvasGroup>().alpha = isFlipped ? 1f : 0f;
+        backVisualTransform.gameObject.GetComponent<CanvasGroup>().alpha = isFlipped ? 0f : 1f;
+        isFlipped = !isFlipped;
+
+        flipTween = flipTransform
+            .DOLocalRotate(new Vector3(0f, 0f, 0f), flipDuration / 2)
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true)
+            .OnComplete(() => {
+                Debug.Log("Flip completed");
+            });
+    }
+
+    // ==============================
+    // Update Motion (Idle Only)
+    // ==============================
+
+    private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space)) CardFlip();
-        if((target == null || isHovered) && CheckHomePosition() && CheckHomeRotation()) return;
+        if((target == null || isHovered) && IsAtHomePosition() && IsAtHomeRotation()) return;
         LerpPosition();
         LerpRotation();
     }
 
-    private bool CheckHomePosition(){
-        if(Vector3.Distance(transform.position, target.transform.position) < 0.1f) return true;
-        return false;
-    } 
-
-    private bool CheckHomeRotation(){
-        if(Quaternion.Angle(transform.rotation, target.transform.parent.rotation) < 0.1f) return true;
-        return false;
+    private bool IsAtHomePosition()
+    {
+        return Vector3.Distance(transform.position, target.transform.position) < 0.1f;
     }
 
-    private void LerpPosition(){
-        transform.position = Vector3.Lerp(transform.position, target.transform.position, followSpeed);
+    private bool IsAtHomeRotation()
+    {
+        return Quaternion.Angle(transform.rotation, target.transform.parent.rotation) < 0.1f;
     }
 
-    private void LerpRotation(){
-        var difference = (target.transform.position - transform.position);
-        if(difference.magnitude > distanceBeforeRealign)
+    private void LerpPosition()
+    {
+        transform.position = Vector3.Lerp(
+            transform.position,
+            target.transform.position,
+            followSpeed
+        );
+    }
+
+    private void LerpRotation()
+    {
+        Vector3 difference = target.transform.position - transform.position;
+
+        if (difference.magnitude > distanceBeforeRealign)
         {
             direction = (target.transform.position + Vector3.up * distanceBeforeRealign - transform.position).normalized;
-            targetAngle = Mathf.Clamp(Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg / 3f, -maxAngle, maxAngle);
-        } else {
-            direction = Vector3.zero;
+            targetAngle = Mathf.Clamp(
+                Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg / 3f,
+                -maxAngle,
+                maxAngle
+            );
+        }
+        else
+        {
             targetAngle = -Mathf.DeltaAngle(0f, target.transform.parent.rotation.eulerAngles.z);
         }
 
-        var currentAngle = Mathf.Atan2(transform.up.x, transform.up.y) * Mathf.Rad2Deg;
-        //var angle = Mathf.Lerp(0, targetAngle, difference.magnitude);
-        var newAngle = -Mathf.Lerp(currentAngle, targetAngle, rotationSpeed * Time.deltaTime);
-        transform.rotation = Quaternion.Euler(0, 0, newAngle);
+        float currentAngle = Mathf.Atan2(transform.up.x, transform.up.y) * Mathf.Rad2Deg;
+        float newAngle = -Mathf.Lerp(currentAngle, targetAngle, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
     }
 }
-
