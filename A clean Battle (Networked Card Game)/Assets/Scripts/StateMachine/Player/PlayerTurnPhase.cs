@@ -10,6 +10,8 @@ public class PlayerTurnPhase : GamePhase
         // Conditions applied
         // Shields drop
         // Cards drawn
+        SlotManager.Instance.ClearPlayedCards();
+        GamePlayState.Instance.PlayerStates.ForEach(x => x.ClearHand());
         GamePlayState.Instance.MainTurnCard.InitializeTurnCard("Player Turn");
         GamePlayState.Instance.MainTurnCard.gameObject.SetActive(true);
     }

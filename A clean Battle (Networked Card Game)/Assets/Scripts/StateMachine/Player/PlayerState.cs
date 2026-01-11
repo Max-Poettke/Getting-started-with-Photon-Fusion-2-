@@ -49,6 +49,14 @@ public class PlayerState : MonoBehaviour
 
     public void Initialize(){
         handSize = StartHandSize;
+    }
+
+    public void ClearHand(){
+        SlotManager.Instance.ClearPlayerCards();
+        Invoke("DrawHand", 0.4f);
+    }
+
+    public void DrawHand(){
         for(int i = 0; i < handSize; i++){
             DrawCard();
         }

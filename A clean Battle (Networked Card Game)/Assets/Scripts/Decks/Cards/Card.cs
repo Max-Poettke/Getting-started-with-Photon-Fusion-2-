@@ -21,6 +21,11 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public bool isDragging = false;
     private bool isEnemyCard = false;
 
+    private float playDuration = 0.2f;
+
+    public UnityEvent OnPlayEvent = new UnityEvent();
+    public UnityEvent OnFinishedPlayingEvent = new UnityEvent();
+
     //an event for each PointerEvent
 
     public UnityEvent OnBeginDragEvent = new UnityEvent();
@@ -31,13 +36,14 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public UnityEvent OnPointerDownEvent = new UnityEvent();
     public UnityEvent OnPointerUpEvent = new UnityEvent();
 
-    public void Initialize(ScriptableCard data, PlayerState playerOwner){
+    public void Initialize(ScriptableCard data, PlayerState playerOwner, float _playDuration = 0.7f){
         if(playerOwner == null) {
             isEnemyCard = true;
         } else {
             PlayerOwner = playerOwner;
         }
 
+        playDuration = _playDuration;
         CardData = data;
         cardVisual.image.sprite = data.MainImage;
         cardVisual.cardName.text = data.cardName;
@@ -142,6 +148,13 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         if(CardData is not null){
             CardData.Resolve(new CardContext(PlayerOwner, GamePlayState.Instance.EnemyState, GamePlayState.Instance));
         }
+        Debug.Log("Card played");
+        OnPlayEvent.Invoke();
+        Invoke("FinishPlaying", playDuration);
+    }
+
+    public void FinishPlaying(){
+        OnFinishedPlayingEvent.Invoke();
     }
 
     void OnDestroy(){

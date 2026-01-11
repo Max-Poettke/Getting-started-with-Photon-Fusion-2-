@@ -15,6 +15,10 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private Transform shakeTransform;
     [SerializeField] private Transform tiltTransform;
     [SerializeField] private Transform shadowTransform;
+    [SerializeField] private Transform flipTransform;
+
+    [SerializeField] private Transform baseVisualTransfrom;
+    [SerializeField] private Transform backVisualTransform;
 
     [Header("Movement Values")]
     [SerializeField] private float maxAngle = 10f;
@@ -22,6 +26,7 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float distanceBeforeRealign = 10f;
     [SerializeField] private float distanceOnHover = 10f;
+    [SerializeField] private float flipDuration = 0.5f;
     private Vector3 direction;
     private float targetAngle;
     private Vector3 shakeAxis = new Vector3(0, 0, 1);
@@ -32,6 +37,45 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private float scaleDefault = 1f;
     [SerializeField] private float scaleOnHover = 1.1f;
     [SerializeField] private float scaleOnSelect = 1.2f;
+    [SerializeField] private float scaleOnFlip = 1.1f;
+
+    public bool isFlipped = true;
+
+    //tweens
+    private Tween scaleTween;
+    private Tween shakeTween;
+    private Tween flipTween;
+    private Tween shadowTween;
+    private Tween flipRotationTween;
+
+    private bool flipCompletedNaturally = false;
+
+    public void CardFlip(){
+        Debug.Log("Flipping card: " + target.name);
+        KillScaleTween();
+        KillShakeTween();
+        KillFlipTween();
+        flipRotationTween = flipTransform.DOLocalRotate(new Vector3(0f,90f,0f), flipDuration / 2)
+            .OnComplete(() => flipCompletedNaturally = true)
+            .OnKill(() => {
+                if(!flipCompletedNaturally){
+                    flipRotationTween.Complete();
+                }
+                flipCompletedNaturally = false;
+            })
+            .OnComplete(FinishFlip);
+    }
+    private void FinishFlip(){
+        if(isFlipped){
+            baseVisualTransfrom.gameObject.SetActive(true);
+            backVisualTransform.gameObject.SetActive(false);
+        } else {
+            baseVisualTransfrom.gameObject.SetActive(false);
+            backVisualTransform.gameObject.SetActive(true);
+        }
+        isFlipped = !isFlipped;
+        flipRotationTween = flipTransform.DOLocalRotate(new Vector3(0f,0f,0f), flipDuration / 2).SetEase(Ease.OutQuad);
+    }
 
 
     
@@ -50,25 +94,37 @@ public class CardVisual : MonoBehaviour
     private void Start()
     {
         ThemeManager.Instance.ApplyTheme();
+        CardFlip();
     }
 
     private void KillScaleTween()
     {
-        transform.DOKill();
+        scaleTween?.Kill();
     }
 
     private void KillShakeTween()
     {
-        shakeTransform.DOKill();
+        shakeTween?.Kill();
         shakeTransform.localRotation = baseShakeRotation;
+    }
+
+    private void KillShadowTween()
+    {
+        shadowTween?.Kill();
+    }
+
+    private void KillFlipTween()
+    {
+        flipTween?.Kill();
+        flipRotationTween?.Kill();
     }
 
     public void OnPlay(float scaleOnPlay = 0.7f){
         ChangeScaleOnPlay(scaleOnPlay);
         KillScaleTween();
-        KillShakeTween();
+        //KillShakeTween();
 
-        transform
+        scaleTween = transform
             .DOScale(scaleDefault, 0.1f);
     }
 
@@ -78,11 +134,12 @@ public class CardVisual : MonoBehaviour
         SlotManager.Instance.isHovered = false;
         KillScaleTween();
         KillShakeTween();
+        KillShadowTween();
 
-        transform
+        scaleTween = transform
             .DOScale(scaleOnSelect, 0.1f);
 
-        shadowTransform
+        shadowTween = shadowTransform
             .DOLocalMove(new Vector3(50f, -50f, 0), 0.1f, false);
 
         SlotManager.Instance.PushcardVisualToTop(this);
@@ -92,11 +149,12 @@ public class CardVisual : MonoBehaviour
     {
         KillScaleTween();
         KillShakeTween();
+        KillShadowTween();
 
-        transform
+        scaleTween = transform
             .DOScale(scaleDefault, 0.1f);
 
-        shadowTransform
+        shadowTween = shadowTransform
             .DOLocalMove(new Vector3(5f, -5f, 0), 0.1f, false);
 
         Shake(0.3f, 10f);
@@ -112,7 +170,7 @@ public class CardVisual : MonoBehaviour
         KillScaleTween();
         KillShakeTween();
 
-        transform
+        scaleTween = transform
             .DOScale(scaleOnHover, 0.1f)
             .SetEase(Ease.OutBack);
 
@@ -126,7 +184,7 @@ public class CardVisual : MonoBehaviour
         KillScaleTween();
         KillShakeTween();
 
-        transform
+        scaleTween = transform
             .DOScale(scaleDefault, 0.1f)
             .SetEase(Ease.InBack);
 
@@ -141,7 +199,7 @@ public class CardVisual : MonoBehaviour
 
     private void Shake(float duration, float strength)
     {
-        shakeTransform
+        shakeTween = shakeTransform
             .DOShakeRotation(
                 duration,
                 shakeAxis * strength,
@@ -154,6 +212,7 @@ public class CardVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space)) CardFlip();
         if((target == null || isHovered) && CheckHomePosition() && CheckHomeRotation()) return;
         LerpPosition();
         LerpRotation();

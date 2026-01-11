@@ -27,6 +27,8 @@ public class GamePlayState : MonoBehaviour
     public GameState CurrentState;
     private Dictionary<GameState, GamePhase> phases;
 
+    public bool inLoop = false;
+
     private void Awake()
     {
         Instance = this;
@@ -70,10 +72,20 @@ public class GamePlayState : MonoBehaviour
         CurrentState = newState;
         currentPhase.Enter();
         OnStateChanged?.Invoke();
+        //Debug.Log("State changed to " + newState);
     }
 
     public void ChangeToNextState(){
-        ChangeState(CurrentState + 1);
+        if(inLoop){
+            //in loop, so we want to switch between player and enemy turns
+            if(CurrentState == GameState.PlayerTurn){
+                ChangeState(GameState.EnemyTurn);
+            } else {
+                ChangeState(GameState.PlayerTurn);
+            }
+        } else {
+            ChangeState(CurrentState + 1);
+        }
     }
 
     public PlayerState GetPlayerWithHighestThreat()

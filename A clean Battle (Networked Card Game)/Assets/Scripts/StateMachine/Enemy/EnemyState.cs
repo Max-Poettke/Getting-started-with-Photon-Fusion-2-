@@ -32,6 +32,7 @@ public class EnemyState : MonoBehaviour
     }
 
     public void PlayCard(){
+        SlotManager.Instance.EnemyCards[0].OnFinishedPlayingEvent.AddListener(() => GamePlayState.Instance.ChangeToNextState());
         SlotManager.Instance.EnemyPlayCard(deck.Cards[UnityEngine.Random.Range(0, deck.Cards.Count)]);
     }
 

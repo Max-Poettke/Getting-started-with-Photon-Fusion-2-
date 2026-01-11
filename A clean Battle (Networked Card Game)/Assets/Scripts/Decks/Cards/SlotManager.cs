@@ -136,7 +136,7 @@ public class SlotManager : MonoBehaviour
         Cards.Remove(card);
         Slots.Remove(card.transform.parent);
         CardVisuals.Remove(card.cardVisual);
-        Destroy(card.cardVisual.gameObject);
+        //Destroy(card.cardVisual.gameObject);
         Destroy(card.transform.parent.gameObject);
         StartCoroutine(ApplyLayoutNextFrame());
     }
@@ -254,6 +254,9 @@ public class SlotManager : MonoBehaviour
         card.transform.parent.localScale = Vector3.one;
         card.cardVisual.transform.SetParent(playedCardVisualParent);
         EnemyCards.Remove(card);
+
+        PlayedCards.Add(card);
+        PlaySlots.Add(card.transform.parent);
         
         card.PlayCard();
         ReadjustEnemyCards(_cardToSpawnAfter);
@@ -295,6 +298,16 @@ public class SlotManager : MonoBehaviour
         }
     }
 
+    public void ClearPlayerCards(){
+        foreach(var card in Cards){
+            CardVisuals.Remove(card.cardVisual);
+            Destroy(card.cardVisual.gameObject);
+            Destroy(card.transform.parent.parent.gameObject);
+            StartCoroutine(ApplyLayoutNextFrame());
+        }
+        Cards.Clear();
+    }
+
     public void ClearPlayedCards(){
         foreach(var card in PlayedCards){
             PlaySlots.Remove(card.transform.parent);
@@ -304,7 +317,6 @@ public class SlotManager : MonoBehaviour
             StartCoroutine(ApplyLayoutNextFrame());
         }
         PlayedCards.Clear();
-        
     }
 
     private void RebuildSlotsFromHierarchy()

@@ -16,5 +16,6 @@ public class StartPhase : GamePhase
         GamePlayState.Instance.PlayerStates.ForEach(x => x.Initialize());
         GamePlayState.Instance.EnemyState.Initialize();
         GamePlayState.Instance.Invoke("ChangeToNextState", 1.3f);
+        GamePlayState.Instance.inLoop = true;
     }
 }
