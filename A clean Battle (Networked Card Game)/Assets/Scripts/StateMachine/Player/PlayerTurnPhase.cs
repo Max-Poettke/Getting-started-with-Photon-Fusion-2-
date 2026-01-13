@@ -11,8 +11,14 @@ public class PlayerTurnPhase : GamePhase
         // Shields drop
         // Cards drawn
         SlotManager.Instance.ClearPlayedCards();
-        GamePlayState.Instance.PlayerStates.ForEach(x => x.ClearHand());
         GamePlayState.Instance.MainTurnCard.InitializeTurnCard("Player Turn");
         GamePlayState.Instance.MainTurnCard.gameObject.SetActive(true);
+        GamePlayState.Instance.PlayerStates.ForEach(x => x.Tick());
+    }
+
+    public override void Exit()
+    {
+        Debug.Log("Player Turn Phase exited");
+        GamePlayState.Instance.PlayerStates.ForEach(x => {x.ClearHand();});
     }
 }

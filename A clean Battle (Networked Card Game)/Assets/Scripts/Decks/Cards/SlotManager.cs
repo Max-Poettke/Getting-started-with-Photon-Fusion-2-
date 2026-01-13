@@ -82,7 +82,7 @@ public class SlotManager : MonoBehaviour
         cardVisual.ChangeScaleOnPlay(0.5f);
         card.OnPointerEnterEvent.AddListener(() => cardVisual.OnHoverEnter());
         card.OnPointerExitEvent.AddListener(() => cardVisual.OnHoverExit());
-        card.Initialize(cardData, null);
+        card.Initialize(cardData, null, 1.0f);
     }
 
     public void SpawnCardWithParents(ScriptableCard cardData, PlayerState playerOwner){

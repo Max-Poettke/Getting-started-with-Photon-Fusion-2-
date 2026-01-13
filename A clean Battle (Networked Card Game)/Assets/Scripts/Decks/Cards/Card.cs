@@ -36,7 +36,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public UnityEvent OnPointerDownEvent = new UnityEvent();
     public UnityEvent OnPointerUpEvent = new UnityEvent();
 
-    public void Initialize(ScriptableCard data, PlayerState playerOwner, float _playDuration = 0.7f){
+    public void Initialize(ScriptableCard data, PlayerState playerOwner, float _playDuration = 0.2f){
         if(playerOwner == null) {
             isEnemyCard = true;
         } else {

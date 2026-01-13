@@ -40,6 +40,8 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private GameObject threatPrefab;
 
     private int handSize;
+    private int currentHandSize;
+    private int actionAmount;
 
     private void Start(){
         healthSlider.maxValue = MaxHealth;
@@ -47,16 +49,26 @@ public class PlayerState : MonoBehaviour
         healthText.text = Health.ToString();
     }
 
+    public void UpdateHandSize(int _handSize){
+        handSize = _handSize;
+    }
+
     public void Initialize(){
+        actionAmount = Actions;
         handSize = StartHandSize;
+        ClearHand();
     }
 
     public void ClearHand(){
+        Actions = actionAmount;
         SlotManager.Instance.ClearPlayerCards();
-        Invoke("DrawHand", 0.4f);
     }
 
-    public void DrawHand(){
+    public void InvokeDrawHand(float delay = 0.4f){
+        Invoke("DrawHand", delay);
+    }
+
+    private void DrawHand(){
         for(int i = 0; i < handSize; i++){
             DrawCard();
         }
@@ -115,6 +127,7 @@ public class PlayerState : MonoBehaviour
         TickShield();
         TickPoison();
         TickThreat();
+        UpdateUI();
     }
 
     public void TickShield(){

@@ -15,6 +15,11 @@ public class EnemyTurnPhase : GamePhase
         GamePlayState.Instance.MainTurnCard.gameObject.SetActive(true);
         GamePlayState.Instance.MainTurnCard.InvokeDisable(1);
         GamePlayState.Instance.EnemyState.Play(1.2f);
-        
+    }
+    
+    public override void Exit()
+    {
+        Debug.Log("Enemy Turn Phase exited");
+        GamePlayState.Instance.PlayerStates.ForEach(x => x.InvokeDrawHand());
     }
 }

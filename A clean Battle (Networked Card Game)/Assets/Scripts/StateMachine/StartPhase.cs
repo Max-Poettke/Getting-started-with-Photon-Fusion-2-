@@ -13,7 +13,7 @@ public class StartPhase : GamePhase
         // Players spawn
         GamePlayState.Instance.MainTurnCard.InitializeTurnCard("Battle Start!");
         GamePlayState.Instance.MainTurnCard.gameObject.SetActive(true);
-        GamePlayState.Instance.PlayerStates.ForEach(x => x.Initialize());
+        GamePlayState.Instance.PlayerStates.ForEach(x => {x.Initialize(); x.InvokeDrawHand();});
         GamePlayState.Instance.EnemyState.Initialize();
         GamePlayState.Instance.Invoke("ChangeToNextState", 1.3f);
         GamePlayState.Instance.inLoop = true;
