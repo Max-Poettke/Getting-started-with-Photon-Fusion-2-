@@ -7,9 +7,4 @@ public class ShieldStack : ScriptableStat
     public string statName = "Shield";
     public int amount;
     public int tickInXRounds;
-
-    public override void Tick()
-    {
-        
-    }
 }

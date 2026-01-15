@@ -7,9 +7,4 @@ public class PoisonStack : ScriptableStat
     public string statName = "Poison";
     public int amount;
     public int tickInXRounds;
-
-    public override void Tick()
-    {
-        
-    }
 }

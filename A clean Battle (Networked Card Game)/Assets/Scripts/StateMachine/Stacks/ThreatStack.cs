@@ -8,9 +8,4 @@ public class ThreatStack : ScriptableStat
     public string statName = "Threat";
     public int amount;
     public int tickInXRounds;
-
-    public override void Tick()
-    {
-        
-    }
 }

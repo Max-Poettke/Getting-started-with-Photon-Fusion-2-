@@ -195,7 +195,7 @@ public class CardVisual : MonoBehaviour
 
     private void FinishFlip()
     {
-        Debug.Log("finishing flip");
+        //Debug.Log("finishing flip");
         baseVisualTransform.gameObject.GetComponent<CanvasGroup>().alpha = isFlipped ? 1f : 0f;
         backVisualTransform.gameObject.GetComponent<CanvasGroup>().alpha = isFlipped ? 0f : 1f;
         isFlipped = !isFlipped;
@@ -205,7 +205,7 @@ public class CardVisual : MonoBehaviour
             .SetEase(Ease.OutQuad)
             .SetUpdate(true)
             .OnComplete(() => {
-                Debug.Log("Flip completed");
+                //Debug.Log("Flip completed");
             });
     }
 

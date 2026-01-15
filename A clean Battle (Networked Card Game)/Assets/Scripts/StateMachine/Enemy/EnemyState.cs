@@ -7,6 +7,8 @@ public class EnemyState : MonoBehaviour
 {
     public int Health = 10;
     public int MaxHealth = 10;
+
+    public List<ScriptableStat> stats;
     public List<PoisonStack> poisonStacks;
     public List<ShieldStack> shieldStacks;
     public List<ThreatStack> threatStacks;
@@ -16,6 +18,27 @@ public class EnemyState : MonoBehaviour
 
     public event Action OnTakeDamage;
     public event Action OnDie;
+
+    public StatHelper statHelper;
+
+    private void Start(){
+        statHelper = transform.GetComponentInChildren<StatHelper>();
+    }
+
+    private int tickInXRounds = 1;
+    private void Update(){
+        //test
+        if(Input.GetKeyDown(KeyCode.S)){
+            //ShieldStack newShieldStack = ScriptableStat.CreateStat(-1, null, StatHelper.StatType.Shield, 1, tickInXRounds) as ShieldStack;
+            //AddStat(newShieldStack);
+            //tickInXRounds++;
+        } else if (Input.GetKeyDown(KeyCode.D)){
+            if(stats.Count == 0){
+                return;
+            }
+            //RemoveStat(stats[0]);
+        }
+    }
 
     public void Initialize(){
         if(deck.Cards.Count == 0) {
@@ -55,6 +78,15 @@ public class EnemyState : MonoBehaviour
     public void Die(){
         IsAlive = false;
         OnDie?.Invoke();
+    }
+
+    public void AddStat(ScriptableStat stat){
+        stats.Add(stat);
+        statHelper.AddNewStat(stat);
+    }
+
+    public void RemoveStat(ScriptableStat stat){
+        stats.Remove(stat);
     }
 
     public void AddPoisonStack(int _amount, int _tickInXRounds){

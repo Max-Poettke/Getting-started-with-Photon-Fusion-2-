@@ -35,6 +35,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private Transform shieldPosition;
     [SerializeField] private Transform poisonPosition;
     [SerializeField] private Transform threatPosition;
+    [SerializeField] private StatHelper statHelper;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject shieldPrefab;
@@ -49,6 +50,21 @@ public class PlayerState : MonoBehaviour
         healthSlider.maxValue = MaxHealth;
         healthSlider.value = Health;
         healthText.text = Health.ToString();
+        statHelper = transform.GetComponentInChildren<StatHelper>();
+    }
+
+    private int tickInXRounds = 0;
+    private void Update(){
+        //test
+        if(Input.GetKeyDown(KeyCode.S)){
+            AddShieldStack(1, tickInXRounds);
+            tickInXRounds++;
+        } else if (Input.GetKeyDown(KeyCode.D)){
+            if(stats.Count == 0){
+                return;
+            }
+            //RemoveStat(stats[0]);
+        }  
     }
 
     public void UpdateHandSize(int _handSize){
@@ -101,8 +117,8 @@ public class PlayerState : MonoBehaviour
     private void UpdateUI(){
         healthSlider.value = Health;
         healthText.text = Health.ToString();
-        threatText.text = "T: " + GetThreatAmount(0);
         actionsText.text = "A: " + Actions.ToString();
+
     }
 
     public void Die(){
@@ -110,39 +126,104 @@ public class PlayerState : MonoBehaviour
         OnDie?.Invoke();
     }
 
+    public void AddStat(ScriptableStat stat){
+        stats.Add(stat);
+        statHelper.AddNewStat(stat);
+    }
+
+    public void RemoveStat(ScriptableStat stat){
+        stats.Remove(stat);
+    }
+
     public void AddPoisonStack(int _amount, int _tickInXRounds){
-        poisonStacks.Add(new PoisonStack(){amount = _amount, tickInXRounds = _tickInXRounds});
+        var newPoisonStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Poison, _amount, _tickInXRounds);
+        //poisonStacks.Add(newPoisonStack);
+        AddStat(newPoisonStack);
         UpdateUI();
     }
 
     public void AddShieldStack(int _amount, int _tickInXRounds){
-        shieldStacks.Add(new ShieldStack(){amount = _amount, tickInXRounds = _tickInXRounds});
+        var newShieldStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Shield, _amount, _tickInXRounds);
+        Debug.Log(newShieldStack);
+        Debug.Log("Adding shield stack: " + newShieldStack.tickInXRounds + " ; " + _tickInXRounds + " ; " + newShieldStack.statType + " ; " + newShieldStack.amount);
+        //shieldStacks.Add(newShieldStack);
+        AddStat(newShieldStack);
         UpdateUI();
     }
 
     public void AddThreatStack(int _amount, int _tickInXRounds){
-        threatStacks.Add(new ThreatStack(){amount = _amount, tickInXRounds = _tickInXRounds});
+        var newThreatStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds);
+        //ThreatStack newThreatStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds) as ThreatStack;
+        //threatStacks.Add(newThreatStack);
+        AddStat(newThreatStack);
         UpdateUI();
     }
 
     public void Tick(){
-        TickShield();
-        TickPoison();
-        TickThreat();
+        List<ScriptableStat> stacksToRemove = stats.FindAll(x => x.tickInXRounds == 0);
+        bool _removedShield = false;
+        bool _removedPoison = false;
+        bool _removedThreat = false;
+        foreach(var stat in stacksToRemove){
+            if(stat.statType == StatHelper.StatType.Poison){
+                _removedPoison = true;
+            } else if(stat.statType == StatHelper.StatType.Shield){
+                _removedShield = true;
+            } else if(stat.statType == StatHelper.StatType.Threat){
+                _removedThreat = true;
+            }
+            stats.Remove(stat);
+            RemoveStat(stat);
+        }
+
+        if(_removedShield){
+            statHelper.DestroyStat(StatHelper.StatType.Shield, 0);
+        }
+
+        if(_removedPoison){
+            statHelper.DestroyStat(StatHelper.StatType.Poison, 0);
+        }
+
+        if(_removedThreat){
+            statHelper.DestroyStat(StatHelper.StatType.Threat, 0);
+        }
+
+        foreach(var stat in stats){
+            stat.tickInXRounds--;
+        }
+
+        //TickShield();
+        //TickPoison();
+        //TickThreat();
         UpdateUI();
     }
 
     public void TickShield(){
-        shieldStacks.RemoveAll(x => x.tickInXRounds == 0);
+        List<ShieldStack> _stacksToRemove = shieldStacks.FindAll(x => x.tickInXRounds == 0);
+        Debug.Log("Shield stacks to remove: " + _stacksToRemove.Count);
+        foreach (var shieldStack in _stacksToRemove)
+        {
+            shieldStacks.Remove(shieldStack);
+            RemoveStat(shieldStack);
+        }
+        statHelper.DestroyStat(StatHelper.StatType.Shield, 0);
+
         foreach (var shieldStack in shieldStacks)
         {
             shieldStack.tickInXRounds--;
-        }     
+        }
     }
 
     public void TickPoison(){
         Health -= GetPoisonAmount(0);
-        poisonStacks.RemoveAll(x => x.tickInXRounds == 0);
+        List<PoisonStack> _stacksToRemove = poisonStacks.FindAll(x => x.tickInXRounds == 0);
+        foreach (var poisonStack in _stacksToRemove)
+        {
+            poisonStacks.Remove(poisonStack);
+            RemoveStat(poisonStack);
+        }
+        statHelper.DestroyStat(StatHelper.StatType.Poison, 0);
+        
         foreach (var poisonStack in poisonStacks)
         {
             poisonStack.tickInXRounds--;
@@ -150,7 +231,14 @@ public class PlayerState : MonoBehaviour
     }
 
     public void TickThreat(){
-        threatStacks.RemoveAll(x => x.tickInXRounds == 0);
+        List<ThreatStack> _stacksToRemove = threatStacks.FindAll(x => x.tickInXRounds == 0);
+        foreach (var threatStack in _stacksToRemove)
+        {
+            threatStacks.Remove(threatStack); 
+            RemoveStat(threatStack);  
+        }
+        statHelper.DestroyStat(StatHelper.StatType.Threat, 0);
+        
         foreach (var threatStack in threatStacks)
         {
             threatStack.tickInXRounds--;
