@@ -16,6 +16,8 @@ public class PlayerState : MonoBehaviour
     public int Actions = 2;
     public int Class = 0; // 0 = Protector, 1 = Fighter, 2 = Support, 3 = Rogue
     public DeckData deck;
+
+    public List<ScriptableStat> stats = new List<ScriptableStat>();
     public List<PoisonStack> poisonStacks = new List<PoisonStack>();
     public List<ShieldStack> shieldStacks = new List<ShieldStack>();
     public List<ThreatStack> threatStacks = new List<ThreatStack>();

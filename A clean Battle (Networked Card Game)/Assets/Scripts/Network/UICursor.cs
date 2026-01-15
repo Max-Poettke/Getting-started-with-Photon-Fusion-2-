@@ -5,6 +5,7 @@ public class UICursor : MonoBehaviour
 {
     [SerializeField] private RectTransform cursor;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private float cursorCenterOffset = 15f;
 
     void Awake()
     {
@@ -28,7 +29,7 @@ public class UICursor : MonoBehaviour
             out Vector2 localPos
         );
 
-        cursor.localPosition = localPos;
+        cursor.localPosition = localPos + new Vector2(cursorCenterOffset, -cursorCenterOffset);
     }
 
     void OnDisable()

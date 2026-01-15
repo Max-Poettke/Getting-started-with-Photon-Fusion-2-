@@ -237,6 +237,7 @@ public class SlotManager : MonoBehaviour
         card.cardVisual.transform.SetParent(playedCardVisualParent);
         Destroy(playEnabledParentParent.gameObject);
 
+        card.transform.parent.localScale = Vector3.one * 0.7f;
         card.PlayCard();
         DisablePlayCard();
         StartCoroutine(ApplyLayoutNextFrame());
@@ -257,6 +258,7 @@ public class SlotManager : MonoBehaviour
 
         PlayedCards.Add(card);
         PlaySlots.Add(card.transform.parent);
+        card.transform.parent.localScale = Vector3.one * 0.7f;
         
         card.PlayCard();
         ReadjustEnemyCards(_cardToSpawnAfter);
