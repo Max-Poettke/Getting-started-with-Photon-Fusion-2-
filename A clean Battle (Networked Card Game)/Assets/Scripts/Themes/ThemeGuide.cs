@@ -9,19 +9,23 @@ public class ThemeGuide : MonoBehaviour
     {
         MainColor,
         SecondaryColor,
-        TextColor,
+        Text,
         ActionColor,
-        ThreatColor,
-        OutlineColor,
-        UnderlayColor
+        ThreatColor
     }
 
 
+    [SerializeField] private float alpha = 1f;
     [SerializeField] private Theme theme;
     [SerializeField] private Type type;
 
     private TMP_Text tmp;
     private Image image;
+
+    private void Start(){
+        SetTheme(ThemeManager.Instance.activeTheme);
+        ApplyTheme();
+    }
 
     private void OnValidate()
     {
@@ -41,14 +45,17 @@ public class ThemeGuide : MonoBehaviour
         if (tmp == null) tmp = GetComponent<TMP_Text>();
         if (image == null) image = GetComponent<Image>();
 
-        Color color = GetColor();
+        Color color = GetColor(type);
+        color.a = alpha;
 
         // TMP SDF handling
         if (tmp != null)
         {
             if(tmp.fontMaterial == null) return;
-            ApplyToTMP(tmp, color);
-            return;
+            if(type == Type.Text) {
+                ApplyToTMP(tmp, color);
+                return;
+            }
         }
 
         // UI Image fallback
@@ -67,34 +74,22 @@ public class ThemeGuide : MonoBehaviour
         if (mat == null)
             return;
 
-        switch (type)
-        {
-            case Type.TextColor:
-                tmp.color = color;
-                break;
-
-            case Type.OutlineColor:
-                mat.SetColor("_OutlineColor", color);
-                break;
-
-            case Type.UnderlayColor:
-                mat.SetColor("_UnderlayColor", color);
-                break;
-        }
+        tmp.color = color;
+        mat.SetColor("_OutlineColor", theme.OutlineColor);
+        mat.SetColor("_UnderlayColor", theme.UnderlayColor);
     }
 
-    private Color GetColor()
+    private Color GetColor(Type _type)
     {
-        return type switch
+        return _type switch
         {
             Type.MainColor => theme.MainColor,
             Type.SecondaryColor => theme.SecondaryColor,
-            Type.TextColor => theme.TextColor,
+            Type.Text => theme.TextColor,
             Type.ActionColor => theme.ActionColor,
             Type.ThreatColor => theme.ThreatColor,
-            Type.OutlineColor => theme.ActionColor,   // example mapping
-            Type.UnderlayColor => theme.ThreatColor,  // example mapping
             _ => Color.white
         };
     }
 }
+

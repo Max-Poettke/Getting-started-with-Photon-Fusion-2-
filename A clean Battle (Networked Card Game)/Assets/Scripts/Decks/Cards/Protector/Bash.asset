@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Bash
   m_EditorClassIdentifier: Assembly-CSharp::Bash
   MainImage: {fileID: 21300000, guid: 52010908ca646f84f98ca999e7a63abf, type: 3}
+  CostImage: {fileID: 21300000, guid: 4ee94662e362cec43b6005e2f5e884ce, type: 3}
+  ThreatImage: {fileID: 21300000, guid: f374d79f552891d46bc0e07c663b812d, type: 3}
   cardName: Bash
   cardDescription: If you have no SHIELD, deal 2 DAMAGE. Else deal 1 DAMAGE.
   Cost: 1

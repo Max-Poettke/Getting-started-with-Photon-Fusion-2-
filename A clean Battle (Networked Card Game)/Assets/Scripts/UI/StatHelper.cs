@@ -16,6 +16,10 @@ public class StatHelper : MonoBehaviour
     [SerializeField] private GameObject statVisualPrefab;
     [SerializeField] private Transform statParent;
     [SerializeField] private Transform statVisualParent;
+    
+    public string PoisonDescription = "POISON\nDeals damage at the start of the round";
+    public string ShieldDescription = "SHIELD\nReduces damage taken";
+    public string ThreatDescription = "THREAT\nThe player with the most threat at the end of the turn, will be the main target of the next attack";
 
     private List<StatContainer> statContainers = new List<StatContainer>();
 
@@ -34,6 +38,9 @@ public class StatHelper : MonoBehaviour
             _newContainer.slots.Add(_newSlot);
 
             GameObject _newStatVisual = Instantiate(statVisualPrefab, _newContainer.statVisualParent);
+            HoverInfo hoverInfo = _newStatVisual.AddComponent<HoverInfo>();
+            hoverInfo.Descriptions.Add(stat.description);
+
             _newContainer.statVisuals.Add(_newStatVisual);
             UIFollowAnimated _newStatVisualScript = _newStatVisual.GetComponent<UIFollowAnimated>();
             _newStatVisualScript.Initialize(_newSlot.transform);
@@ -53,6 +60,9 @@ public class StatHelper : MonoBehaviour
                 _fittingContainer.slots.Add(_newSlot);
 
                 GameObject _newStatVisual = Instantiate(statVisualPrefab, _fittingContainer.statVisualParent);
+                HoverInfo hoverInfo = _newStatVisual.AddComponent<HoverInfo>();
+                hoverInfo.Descriptions.Add(stat.description);
+                
                 _fittingContainer.statVisuals.Add(_newStatVisual);
                 UIFollowAnimated _newStatVisualScript = _newStatVisual.GetComponent<UIFollowAnimated>();
                 _newStatVisualScript.Initialize(_newSlot.transform);

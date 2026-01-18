@@ -10,6 +10,8 @@ public class CardVisual : MonoBehaviour
     public Image image;
     public TMP_Text cardName;
     public TMP_Text cardDescription;
+    public Image CostImage;
+    public Image ThreatImage;
 
     [SerializeField] private LayoutElement layoutElement;
     [SerializeField] private Transform shakeTransform;

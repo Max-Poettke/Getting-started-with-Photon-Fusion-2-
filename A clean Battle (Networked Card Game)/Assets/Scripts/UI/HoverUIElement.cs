@@ -8,7 +8,7 @@ public class HoverUIElement : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private float scaleOnHover = 1.3f;
     [SerializeField] private float scaleDuration = 0.2f;
     [SerializeField] private Color colorOnHover = Color.white;
-    [SerializeField] private Color colorOnExit = Color.white;
+    private Color colorOnExit;
 
     private Tween scaleTween;
     private Tween colorTween;
@@ -28,6 +28,7 @@ public class HoverUIElement : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        colorOnExit = image.color;
         KillTween(ref scaleTween);
         KillTween(ref colorTween);
         scaleTween = transform

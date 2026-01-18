@@ -17,3 +17,5 @@ MonoBehaviour:
   TextColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
   ActionColor: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
   ThreatColor: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  OutlineColor: {r: 0.4431373, g: 0.2392157, b: 0.2784314, a: 1}
+  UnderlayColor: {r: 0.882353, g: 0.427451, b: 0.3647059, a: 1}

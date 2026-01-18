@@ -48,6 +48,16 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         cardVisual.image.sprite = data.MainImage;
         cardVisual.cardName.text = data.cardName;
         cardVisual.cardDescription.text = data.cardDescription;
+
+        cardVisual.CostImage.sprite = data.CostImage;
+        cardVisual.ThreatImage.sprite = data.ThreatImage;
+
+        if(data.CostImage == null) {
+            cardVisual.CostImage.gameObject.SetActive(false);
+        }
+        if(data.ThreatImage == null) {
+            cardVisual.ThreatImage.gameObject.SetActive(false);
+        }
     }
 
     private void Start(){

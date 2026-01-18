@@ -208,7 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 3
 --- !u!114 &14182751
 MonoBehaviour:
@@ -223,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  m_Color: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -361,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.882353, g: 0.427451, b: 0.3647059, a: 1}
+  m_Color: {r: 0.1254902, g: 0.13333334, b: 0.08235294, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -398,7 +399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 0
 --- !u!1 &109839736
 GameObject:
@@ -459,6 +461,10 @@ MonoBehaviour:
   statVisualPrefab: {fileID: 356554908796172930, guid: 72edbaca88dc49f42b828dc42bf07adc, type: 3}
   statParent: {fileID: 1615877866}
   statVisualParent: {fileID: 507332134}
+  PoisonDescription: "POISON \n Deals damage at the start of the round"
+  ShieldDescription: "SHIELD \n Reduces damage taken"
+  ThreatDescription: "THREAT \n The player with the most threat at the end of the
+    turn, will be the main target of the next attack"
 --- !u!114 &109839739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,7 +620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!114 &247383323
 MonoBehaviour:
@@ -646,7 +653,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278966271
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -850,7 +857,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.882353, g: 0.427451, b: 0.3647059, a: 1}
+  m_BackGroundColor: {r: 0.1254902, g: 0.13333334, b: 0.08235294, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1185,7 +1192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 3
 --- !u!114 &363897396
 MonoBehaviour:
@@ -1200,7 +1208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 1578f46bf00cf574e8ed9bc7c7fe30b9, type: 2}
-  m_Color: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  m_Color: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1303,7 +1311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1340,7 +1348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!1 &410087039
 GameObject:
@@ -1515,7 +1524,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1898517878}
   m_Father: {fileID: 1045518461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1611,7 +1621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!114 &485052028
 MonoBehaviour:
@@ -1626,7 +1637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1843,7 +1854,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 864931148}
   m_Father: {fileID: 1045518461}
@@ -1930,7 +1941,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!114 &651181833
 MonoBehaviour:
@@ -1945,7 +1957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2127,8 +2139,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &769228386
@@ -2181,7 +2193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!114 &769228389
 MonoBehaviour:
@@ -2196,7 +2209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 1578f46bf00cf574e8ed9bc7c7fe30b9, type: 2}
-  m_Color: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+  m_Color: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2283,13 +2296,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc63eaf2336447f43961689b3b14de5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyState
-  Health: 10
-  MaxHealth: 10
+  Health: 15
+  MaxHealth: 15
   stats: []
   poisonStacks: []
   shieldStacks: []
   threatStacks: []
   deck: {fileID: 11400000, guid: d79a77954c9cd6b4ea042dd326ff05c6, type: 2}
+  healthSlider: {fileID: 1451274099}
+  healthText: {fileID: 1747922625}
   IsAlive: 1
   statHelper: {fileID: 0}
 --- !u!1 &824963665
@@ -2457,8 +2472,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &832575517
@@ -2599,7 +2614,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1527642903}
   - {fileID: 1721310442}
@@ -2740,7 +2755,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!114 &888334038
 MonoBehaviour:
@@ -2772,7 +2788,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278966271
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2988,8 +3004,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3071,7 +3087,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!21 &965473621
 Material:
@@ -3138,8 +3155,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &983641170
@@ -3210,7 +3227,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3292,7 +3309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!1 &1012880335
 GameObject:
@@ -3426,9 +3444,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1656514063}
-  - {fileID: 28971538}
   - {fileID: 1701199304}
   - {fileID: 634948168}
+  - {fileID: 28971538}
   - {fileID: 1066969523}
   - {fileID: 1068222791}
   - {fileID: 464925110}
@@ -3464,7 +3482,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4db1c5b93d812f4580a06a2c0223e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeManager
-  activeTheme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  themes:
+  - {fileID: 11400000, guid: 93b3d83a84fd9434b8806b83e665f72f, type: 2}
+  - {fileID: 11400000, guid: 416e72c1c497d4b46a2b8e4e5750e2dd, type: 2}
+  - {fileID: 11400000, guid: b8b814aef5d98a3489af3a24ff9bf22f, type: 2}
+  - {fileID: 11400000, guid: 6b30df1c5dfd5e94099e640dff8a2d99, type: 2}
+  - {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  - {fileID: 11400000, guid: 8ecb434d9aec6fb44a0f158c10928403, type: 2}
+  - {fileID: 11400000, guid: 050f6ad2714aeaf47b3af06d6bbff003, type: 2}
+  - {fileID: 11400000, guid: 4a860c87d9059e3479a499d3afe16d22, type: 2}
+  - {fileID: 11400000, guid: d6f094c585443444b8ac98ccdc9aabd7, type: 2}
+  - {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
+  activeTheme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   camera: {fileID: 330585545}
 --- !u!1 &1061643549
 GameObject:
@@ -3540,7 +3569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!114 &1061643553
 MonoBehaviour:
@@ -3555,7 +3585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3758,7 +3788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3809,7 +3839,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!1 &1068222790
 GameObject:
@@ -3846,7 +3877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -9, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1071060524
@@ -3901,7 +3932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3938,7 +3969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!21 &1091671407
 Material:
@@ -4005,8 +4037,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1121796085
@@ -4064,7 +4096,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!114 &1121796089
 MonoBehaviour:
@@ -4079,7 +4112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4180,7 +4213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 0
 --- !u!114 &1196106747
 MonoBehaviour:
@@ -4195,7 +4229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.882353, g: 0.427451, b: 0.3647059, a: 1}
+  m_Color: {r: 0.1254902, g: 0.13333334, b: 0.08235294, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4270,7 +4304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!114 &1228247668
 MonoBehaviour:
@@ -4302,7 +4337,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278966271
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4422,7 +4457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!114 &1348555373
 MonoBehaviour:
@@ -4437,7 +4473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4981,6 +5017,10 @@ MonoBehaviour:
   statVisualPrefab: {fileID: 356554908796172930, guid: 72edbaca88dc49f42b828dc42bf07adc, type: 3}
   statParent: {fileID: 824963666}
   statVisualParent: {fileID: 1991114216}
+  PoisonDescription: "POISON \n Deals damage at the start of the round"
+  ShieldDescription: "SHIELD \n Reduces damage taken"
+  ThreatDescription: "THREAT \n The player with the most threat at the end of the
+    turn, will be the main target of the next attack"
 --- !u!114 &1527642905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5058,7 +5098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 4
 --- !u!114 &1532560661
 MonoBehaviour:
@@ -5093,7 +5134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  m_Color: {r: 1, g: 0.4666667, b: 0.19215688, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5168,7 +5209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 4
 --- !u!114 &1555564308
 MonoBehaviour:
@@ -5183,7 +5225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 1578f46bf00cf574e8ed9bc7c7fe30b9, type: 2}
-  m_Color: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  m_Color: {r: 1, g: 0.4666667, b: 0.19215688, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5275,8 +5317,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5358,7 +5400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!1 &1615877865
 GameObject:
@@ -5713,8 +5756,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!21 &1689743837
@@ -5782,10 +5825,81 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!1 &1689912178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1689912179}
+  - component: {fileID: 1689912181}
+  - component: {fileID: 1689912180}
+  m_Layer: 5
+  m_Name: Layout Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1689912179
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689912178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1898517878}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1689912180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689912178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!222 &1689912181
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689912178}
+  m_CullTransparentMesh: 1
 --- !u!1 &1701199303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5930,7 +6044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5967,7 +6081,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!1 &1747922622
 GameObject:
@@ -6019,7 +6134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!114 &1747922625
 MonoBehaviour:
@@ -6050,8 +6166,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6186,8 +6302,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1829966743
@@ -6240,7 +6356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!114 &1829966746
 MonoBehaviour:
@@ -6255,7 +6372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6331,7 +6448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  m_Color: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6368,8 +6485,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 3
+--- !u!1 &1898517877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1898517878}
+  - component: {fileID: 1898517879}
+  m_Layer: 5
+  m_Name: HoverInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1898517878
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898517877}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1689912179}
+  m_Father: {fileID: 464925110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 32, y: 32}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1898517879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898517877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f332da2b5c76e44498af9cd100aba3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  InfoTextPrefab: {fileID: 322922507940896988, guid: 30ec68c7a6ce753449c6f575aea5d202, type: 3}
+  InfoTextParent: {fileID: 1689912179}
 --- !u!1 &1913955356
 GameObject:
   m_ObjectHideFlags: 0
@@ -6437,8 +6606,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6520,7 +6689,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!1 &1991114215
 GameObject:
@@ -6770,7 +6940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 0
 --- !u!114 &2073560012
 MonoBehaviour:
@@ -6785,7 +6956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.882353, g: 0.427451, b: 0.3647059, a: 1}
+  m_Color: {r: 0.1254902, g: 0.13333334, b: 0.08235294, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6860,7 +7031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!114 &2092858654
 MonoBehaviour:
@@ -6891,8 +7063,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7027,8 +7199,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0.13333334, g: 0.13333334, b: 0.08627451, a: 1}
+    - _UnderlayColor: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &2110735991
@@ -7130,8 +7302,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7217,7 +7389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!222 &650048908820893788
 CanvasRenderer:
@@ -7425,7 +7598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  m_Color: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7498,7 +7671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7548,7 +7721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!114 &3942997228180033111
 MonoBehaviour:
@@ -7592,7 +7766,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 3
 --- !u!224 &4183810989158755343
 RectTransform:
@@ -7626,7 +7801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 4
 --- !u!222 &4433182676523137892
 CanvasRenderer:
@@ -7808,7 +7984,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!222 &6074099963952017610
 CanvasRenderer:
@@ -7886,8 +8063,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7962,7 +8139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7991,7 +8168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2
 --- !u!114 &7761314102084097982
 MonoBehaviour:
@@ -8005,7 +8183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 0
 --- !u!114 &7830269123328260819
 MonoBehaviour:
@@ -8020,7 +8199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.23529413, b: 0.27450982, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8049,7 +8228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c82808110394a4cb0d0c707a8911fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  alpha: 1
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!222 &8026750070808125823
 CanvasRenderer:
@@ -8072,7 +8252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79215693, g: 0.7960785, b: 0.64705884, a: 1}
+  m_Color: {r: 1, g: 0.4666667, b: 0.19215688, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8102,7 +8282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.882353, g: 0.427451, b: 0.3647059, a: 1}
+  m_Color: {r: 0.1254902, g: 0.13333334, b: 0.08235294, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

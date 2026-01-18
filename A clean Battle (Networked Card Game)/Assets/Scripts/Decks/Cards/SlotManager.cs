@@ -67,6 +67,8 @@ public class SlotManager : MonoBehaviour
         _cardSlot.transform.localPosition = Vector3.one;
         var _cardLogic = _cardSlot.transform.GetChild(0).gameObject;
         Card spawnedCard = _cardLogic.GetComponent<Card>();
+        HoverInfo hoverInfo = spawnedCard.gameObject.AddComponent<HoverInfo>();
+        hoverInfo.Descriptions.Add(cardData.name.ToUpper() + "\n" + cardData.cardDescription);
         EnemyCards.Add(spawnedCard);
         AddEnemyCard(spawnedCard, cardData);
     }

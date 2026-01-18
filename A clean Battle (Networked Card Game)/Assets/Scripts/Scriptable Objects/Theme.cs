@@ -8,4 +8,6 @@ public class Theme : ScriptableObject
     public Color TextColor;
     public Color ActionColor;
     public Color ThreatColor;
+    public Color OutlineColor;
+    public Color UnderlayColor;
 }

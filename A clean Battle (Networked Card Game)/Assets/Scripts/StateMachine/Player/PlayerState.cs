@@ -161,7 +161,7 @@ public class PlayerState : MonoBehaviour
         //var newPoisonStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Poison, _amount, _tickInXRounds);
         
         var newPoisonStack = new PoisonStack();
-        newPoisonStack.Initialize(PlayerNumber, null, StatHelper.StatType.Poison, _amount, _tickInXRounds);
+        newPoisonStack.Initialize(PlayerNumber, null, StatHelper.StatType.Poison, _amount, _tickInXRounds, statHelper.PoisonDescription);
         Debug.Log(newPoisonStack);
         Debug.Log("Adding poison stack: " + newPoisonStack.tickInXRounds + " ; " + _tickInXRounds + " ; " + newPoisonStack.statType + " ; " + newPoisonStack.amount);
         AddStat(newPoisonStack);
@@ -171,7 +171,7 @@ public class PlayerState : MonoBehaviour
         //var newShieldStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Shield, _amount, _tickInXRounds);
         
         var newShieldStack = new ShieldStack();
-        newShieldStack.Initialize(PlayerNumber, null, StatHelper.StatType.Shield, _amount, _tickInXRounds);
+        newShieldStack.Initialize(PlayerNumber, null, StatHelper.StatType.Shield, _amount, _tickInXRounds, statHelper.ShieldDescription);
         Debug.Log(newShieldStack);
         Debug.Log("Adding shield stack: " + newShieldStack.tickInXRounds + " ; " + _tickInXRounds + " ; " + newShieldStack.statType + " ; " + newShieldStack.amount);
         //shieldStacks.Add(newShieldStack);
@@ -180,7 +180,7 @@ public class PlayerState : MonoBehaviour
 
     public void AddThreatStack(int _amount, int _tickInXRounds){
         var newThreatStack = new ThreatStack();
-        newThreatStack.Initialize(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds);
+        newThreatStack.Initialize(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds, statHelper.ThreatDescription);
         //ThreatStack newThreatStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds) as ThreatStack;
         //threatStacks.Add(newThreatStack);
         AddStat(newThreatStack);

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public abstract class ScriptableCard : ScriptableObject
 {
     public Sprite MainImage;
+    public Sprite CostImage;
+    public Sprite ThreatImage;
     public string cardName;
     public string cardDescription;
     public int Cost;
