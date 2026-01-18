@@ -18,10 +18,6 @@ public class PlayerState : MonoBehaviour
     public DeckData deck;
 
     public List<ScriptableStat> stats = new List<ScriptableStat>();
-    public List<PoisonStack> poisonStacks = new List<PoisonStack>();
-    public List<ShieldStack> shieldStacks = new List<ShieldStack>();
-    public List<ThreatStack> threatStacks = new List<ThreatStack>();
-
     public bool IsAlive = true;
 
     public event Action OnTakeDamage;
@@ -57,7 +53,8 @@ public class PlayerState : MonoBehaviour
     private void Update(){
         //test
         if(Input.GetKeyDown(KeyCode.S)){
-            AddShieldStack(1, tickInXRounds);
+            //AddPoisonStack(2, tickInXRounds);
+            AddShieldStack(3, tickInXRounds);
             tickInXRounds++;
         } else if (Input.GetKeyDown(KeyCode.D)){
             if(stats.Count == 0){
@@ -105,8 +102,33 @@ public class PlayerState : MonoBehaviour
         UpdateUI();
     }
 
-    public void TakeDamage(int _damageAmount){
+    public void TakeDamage(int _damageAmount, bool _ignoreShield = false){
+        if(!_ignoreShield){
+            List<ScriptableStat> shieldStacks = GetShield(0);
+            if(shieldStacks.Count > 0){
+                int remainingDamage = _damageAmount;
+                for(int i = 0; i < shieldStacks.Count; i++){
+                    int amount = shieldStacks[i].amount; 
+                    if(remainingDamage >= amount){
+                        remainingDamage -= amount;
+                        stats.Remove(shieldStacks[i]);
+                    } else {
+                        shieldStacks[i].amount -= remainingDamage;
+                        remainingDamage = 0;
+                    }
+                    _damageAmount = remainingDamage;
+                    if(_damageAmount == 0){
+                        break;
+                    } else {
+                        //visually remove the shield
+                        statHelper.DestroyStat(StatHelper.StatType.Shield, 0);
+                    }
+                }
+            }
+        }
+        
         Health -= _damageAmount;
+        Debug.Log("Health: " + Health);
         UpdateUI();
         OnTakeDamage?.Invoke();
         if(Health <= 0){
@@ -118,7 +140,7 @@ public class PlayerState : MonoBehaviour
         healthSlider.value = Health;
         healthText.text = Health.ToString();
         actionsText.text = "A: " + Actions.ToString();
-
+        statHelper.UpdateAllStatUI();
     }
 
     public void Die(){
@@ -136,27 +158,32 @@ public class PlayerState : MonoBehaviour
     }
 
     public void AddPoisonStack(int _amount, int _tickInXRounds){
-        var newPoisonStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Poison, _amount, _tickInXRounds);
-        //poisonStacks.Add(newPoisonStack);
+        //var newPoisonStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Poison, _amount, _tickInXRounds);
+        
+        var newPoisonStack = new PoisonStack();
+        newPoisonStack.Initialize(PlayerNumber, null, StatHelper.StatType.Poison, _amount, _tickInXRounds);
+        Debug.Log(newPoisonStack);
+        Debug.Log("Adding poison stack: " + newPoisonStack.tickInXRounds + " ; " + _tickInXRounds + " ; " + newPoisonStack.statType + " ; " + newPoisonStack.amount);
         AddStat(newPoisonStack);
-        UpdateUI();
     }
 
     public void AddShieldStack(int _amount, int _tickInXRounds){
-        var newShieldStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Shield, _amount, _tickInXRounds);
+        //var newShieldStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Shield, _amount, _tickInXRounds);
+        
+        var newShieldStack = new ShieldStack();
+        newShieldStack.Initialize(PlayerNumber, null, StatHelper.StatType.Shield, _amount, _tickInXRounds);
         Debug.Log(newShieldStack);
         Debug.Log("Adding shield stack: " + newShieldStack.tickInXRounds + " ; " + _tickInXRounds + " ; " + newShieldStack.statType + " ; " + newShieldStack.amount);
         //shieldStacks.Add(newShieldStack);
         AddStat(newShieldStack);
-        UpdateUI();
     }
 
     public void AddThreatStack(int _amount, int _tickInXRounds){
-        var newThreatStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds);
+        var newThreatStack = new ThreatStack();
+        newThreatStack.Initialize(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds);
         //ThreatStack newThreatStack = ScriptableStat.CreateStat(PlayerNumber, null, StatHelper.StatType.Threat, _amount, _tickInXRounds) as ThreatStack;
         //threatStacks.Add(newThreatStack);
         AddStat(newThreatStack);
-        UpdateUI();
     }
 
     public void Tick(){
@@ -172,7 +199,7 @@ public class PlayerState : MonoBehaviour
             } else if(stat.statType == StatHelper.StatType.Threat){
                 _removedThreat = true;
             }
-            stats.Remove(stat);
+            stat.Tick(this);
             RemoveStat(stat);
         }
 
@@ -192,74 +219,18 @@ public class PlayerState : MonoBehaviour
             stat.tickInXRounds--;
         }
 
-        //TickShield();
-        //TickPoison();
-        //TickThreat();
         UpdateUI();
     }
 
-    public void TickShield(){
-        List<ShieldStack> _stacksToRemove = shieldStacks.FindAll(x => x.tickInXRounds == 0);
-        Debug.Log("Shield stacks to remove: " + _stacksToRemove.Count);
-        foreach (var shieldStack in _stacksToRemove)
-        {
-            shieldStacks.Remove(shieldStack);
-            RemoveStat(shieldStack);
-        }
-        statHelper.DestroyStat(StatHelper.StatType.Shield, 0);
-
-        foreach (var shieldStack in shieldStacks)
-        {
-            shieldStack.tickInXRounds--;
-        }
+    public List<ScriptableStat> GetPoison(int _tickInXRounds){
+        return stats.FindAll(x => x.statType == StatHelper.StatType.Poison && x.tickInXRounds == _tickInXRounds);
     }
 
-    public void TickPoison(){
-        Health -= GetPoisonAmount(0);
-        List<PoisonStack> _stacksToRemove = poisonStacks.FindAll(x => x.tickInXRounds == 0);
-        foreach (var poisonStack in _stacksToRemove)
-        {
-            poisonStacks.Remove(poisonStack);
-            RemoveStat(poisonStack);
-        }
-        statHelper.DestroyStat(StatHelper.StatType.Poison, 0);
-        
-        foreach (var poisonStack in poisonStacks)
-        {
-            poisonStack.tickInXRounds--;
-        }     
+    public List<ScriptableStat> GetShield(int _tickInXRounds){
+        return stats.FindAll(x => x.statType == StatHelper.StatType.Shield && x.tickInXRounds == _tickInXRounds);
     }
 
-    public void TickThreat(){
-        List<ThreatStack> _stacksToRemove = threatStacks.FindAll(x => x.tickInXRounds == 0);
-        foreach (var threatStack in _stacksToRemove)
-        {
-            threatStacks.Remove(threatStack); 
-            RemoveStat(threatStack);  
-        }
-        statHelper.DestroyStat(StatHelper.StatType.Threat, 0);
-        
-        foreach (var threatStack in threatStacks)
-        {
-            threatStack.tickInXRounds--;
-        }     
-    }
-
-    public int GetPoisonAmount(int _tickInXRounds){
-        if(poisonStacks == null) return 0;
-        if(poisonStacks.Count == 0) return 0;
-        return poisonStacks.Where(x => x.tickInXRounds == _tickInXRounds).Sum(x => x.amount);
-    }
-
-    public int GetShieldAmount(int _tickInXRounds){
-        if(shieldStacks == null) return 0;
-        if(shieldStacks.Count == 0) return 0;
-        return shieldStacks.Where(x => x.tickInXRounds == _tickInXRounds).Sum(x => x.amount);
-    }
-
-    public int GetThreatAmount(int _tickInXRounds){
-        if(threatStacks == null) return 0;
-        if(threatStacks.Count == 0) return 0;
-        return threatStacks.Where(x => x.tickInXRounds == _tickInXRounds).Sum(x => x.amount);
+    public List<ScriptableStat> GetThreat(int _tickInXRounds){
+        return stats.FindAll(x => x.statType == StatHelper.StatType.Threat && x.tickInXRounds == _tickInXRounds);
     }
 }

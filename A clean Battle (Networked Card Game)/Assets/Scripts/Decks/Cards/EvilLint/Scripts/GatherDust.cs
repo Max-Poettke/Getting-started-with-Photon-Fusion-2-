@@ -7,6 +7,7 @@ public class GatherDust : ScriptableCard
     public override void Resolve(CardContext context)
     {
         context.enemy.Health += HealAmount;
+        context.enemy.UpdateUI();
     }
 }
 

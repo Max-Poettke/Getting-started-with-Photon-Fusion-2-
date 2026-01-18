@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "ScriptableStat", menuName = "Scriptable Objects/ScriptableStat")]
-public class ScriptableStat : ScriptableObject
+public abstract class ScriptableStat : ScriptableObject
 {
     public int playerNumber;
     public Sprite icon;
@@ -10,7 +10,7 @@ public class ScriptableStat : ScriptableObject
     public int amount;
     public int tickInXRounds;
 
-    private void Initialize(int _playerNumber, Sprite _icon, StatHelper.StatType _statType, int _amount, int _tickInXRounds){
+    public void Initialize(int _playerNumber, Sprite _icon, StatHelper.StatType _statType, int _amount, int _tickInXRounds){
         playerNumber = _playerNumber;
         icon = _icon;
         statType = _statType;
@@ -18,9 +18,5 @@ public class ScriptableStat : ScriptableObject
         tickInXRounds = _tickInXRounds;
     }
 
-    public static ScriptableStat CreateStat(int _playerNumber, Sprite _icon, StatHelper.StatType _statType, int _amount, int _tickInXRounds){
-        ScriptableStat stat = ScriptableObject.CreateInstance(typeof(ScriptableStat)) as ScriptableStat;
-        stat.Initialize(_playerNumber, _icon, _statType, _amount, _tickInXRounds);
-        return stat;
-    }
+    public abstract void Tick(PlayerState playerState);
 }

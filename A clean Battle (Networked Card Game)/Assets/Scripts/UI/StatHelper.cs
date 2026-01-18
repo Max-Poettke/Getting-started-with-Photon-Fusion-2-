@@ -98,6 +98,14 @@ public class StatHelper : MonoBehaviour
         _fittingContainer.statVisuals[_statIndex].GetComponent<Image>().sprite = _fittingContainer.stats[_statIndex].icon;
         _fittingContainer.statVisuals[_statIndex].GetComponentInChildren<TMP_Text>().text = _fittingContainer.stats[_statIndex].amount.ToString();
     }
+
+    public void UpdateAllStatUI(){
+        foreach(var container in statContainers){
+            for(int i = 0; i < container.stats.Count; i++){
+                UpdateStatUI(container, i);
+            }
+        }
+    }
 }
 
 public class StatContainer {
