@@ -1,24 +1,13 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-[CreateAssetMenu(fileName = "ScriptableStat", menuName = "Scriptable Objects/ScriptableStat")]
-public abstract class ScriptableStat : ScriptableObject
+public abstract class ScriptableStat
 {
-    public int playerNumber;
-    public Sprite icon;
-    public StatHelper.StatType statType;
+    public string description;
     public int amount;
     public int tickInXRounds;
-    public string description;
+    public StatHelper.StatType statType;
 
-    public void Initialize(int _playerNumber, Sprite _icon, StatHelper.StatType _statType, int _amount, int _tickInXRounds, string _description){
-        playerNumber = _playerNumber;
-        icon = _icon;
-        statType = _statType;
-        amount = _amount;
-        tickInXRounds = _tickInXRounds;
-        description = _description;
-    }
-
-    public abstract void Tick(PlayerState playerState);
+    public virtual void Initialize() {}
+    public virtual void OnBeforeHeal(DamageContext ctx) {}
+    public virtual void OnBeforeDamage(DamageContext ctx) {}
+    public virtual void OnAfterDamage(DamageContext ctx) {}
+    public virtual void OnTick(EntityState owner) {}
 }

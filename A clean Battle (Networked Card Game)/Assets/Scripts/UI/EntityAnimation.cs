@@ -8,8 +8,8 @@ public class EntityAnimation : MonoBehaviour
     [SerializeField] private Image entityImage;
     [SerializeField] private float strength = 1.5f;
     [SerializeField] private float duration = 0.3f;
-    Sequence entitySequence = DOTween.Sequence();
-    Sequence imageSequence = DOTween.Sequence();
+    Sequence entitySequence;
+    Sequence imageSequence;
 
     public void AnimateTakeDamage(Color color = default){
         KillSequence(ref entitySequence, true);

@@ -68,7 +68,7 @@ public class SlotManager : MonoBehaviour
         var _cardLogic = _cardSlot.transform.GetChild(0).gameObject;
         Card spawnedCard = _cardLogic.GetComponent<Card>();
         HoverInfo hoverInfo = spawnedCard.gameObject.AddComponent<HoverInfo>();
-        hoverInfo.Descriptions.Add(cardData.name.ToUpper() + "\n" + cardData.cardDescription);
+        hoverInfo.Descriptions.Add(cardData.name + "\n" + cardData.cardDescription);
         EnemyCards.Add(spawnedCard);
         AddEnemyCard(spawnedCard, cardData);
     }
@@ -241,7 +241,7 @@ public class SlotManager : MonoBehaviour
 
         
         HoverInfo hoverInfo = card.gameObject.AddComponent<HoverInfo>();
-        hoverInfo.Descriptions.Add(card.CardData.name.ToUpper() + "\n" + card.CardData.cardDescription);
+        hoverInfo.Descriptions.Add(card.CardData.name + "\n" + card.CardData.cardDescription);
 
         card.transform.parent.localScale = Vector3.one * 0.7f;
         card.PlayCard();

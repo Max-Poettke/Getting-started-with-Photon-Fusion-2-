@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06021e2c5e0ea564283764a53bf792b5, type: 3}
+  m_Name: BackStab
+  m_EditorClassIdentifier: Assembly-CSharp::BackStab
+  MainImage: {fileID: 21300000, guid: 3f929bc2e87f64441ba0a9c7a42516ca, type: 3}
+  CostImage: {fileID: 21300000, guid: 4ee94662e362cec43b6005e2f5e884ce, type: 3}
+  ThreatImage: {fileID: 21300000, guid: ef8e83f0811b6604983e0762d816d7c9, type: 3}
+  cardName: Backstab
+  cardDescription: Deal 1 DAMAGE. If the enemy has POISON, deal 3 instead
+  Cost: 1
+  ActionCost: 1
+  Attack: 1
+  AttackWhenPoisoned: 3
+  Threat: 2

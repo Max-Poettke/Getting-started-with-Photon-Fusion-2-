@@ -11,6 +11,7 @@ public class EnemyTurnPhase : GamePhase
         // Shields drop
         // Enemy plays cards
         SlotManager.Instance.ClearPlayedCards();
+        GamePlayState.Instance.EnemyState.Tick();
         GamePlayState.Instance.MainTurnCard.InitializeTurnCard("Enemy Turn");
         GamePlayState.Instance.MainTurnCard.gameObject.SetActive(true);
         GamePlayState.Instance.MainTurnCard.InvokeDisable(1);

@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 3779961623146077253}
   - component: {fileID: 7802305938561520954}
   - component: {fileID: 8819921230132030230}
+  - component: {fileID: 8851063033155024191}
   m_Layer: 5
   m_Name: Cost
   m_TagString: Untagged
@@ -448,7 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.95294124, g: 0.6, b: 0.28627452, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -479,6 +480,20 @@ MonoBehaviour:
   alpha: 1
   theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 3
+--- !u!114 &8851063033155024191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677395801813697297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e0ff612fce7274d8ed5b27eef0f53a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverInfo
+  Descriptions:
+  - The amount of actions this card costs to play
 --- !u!1 &3663001393160430963
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +800,7 @@ GameObject:
   - component: {fileID: 8973259635500466872}
   - component: {fileID: 3604354688665667374}
   - component: {fileID: 9153577790480910637}
+  - component: {fileID: 2717315216660999433}
   m_Layer: 5
   m_Name: Threat
   m_TagString: Untagged
@@ -833,7 +849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.4666667, b: 0.19215688, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -864,6 +880,21 @@ MonoBehaviour:
   alpha: 1
   theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 4
+--- !u!114 &2717315216660999433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6064939702730508842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e0ff612fce7274d8ed5b27eef0f53a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverInfo
+  Descriptions:
+  - Threat\nThe Player with the most threat will become the main target for the next
+    attack
 --- !u!1 &6170488617253368708
 GameObject:
   m_ObjectHideFlags: 0

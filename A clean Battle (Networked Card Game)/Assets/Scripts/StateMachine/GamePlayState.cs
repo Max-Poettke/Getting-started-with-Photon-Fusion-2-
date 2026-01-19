@@ -90,6 +90,6 @@ public class GamePlayState : MonoBehaviour
 
     public PlayerState GetPlayerWithHighestThreat()
     {
-        return PlayerStates.OrderByDescending(x => x.GetThreat(0).Sum(x => x.amount)).First();
+        return PlayerStates.OrderByDescending(x => x.GetStatAmount(StatHelper.StatType.Threat, 0)).First();
     }
 }

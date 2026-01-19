@@ -1,9 +1,6 @@
-using UnityEngine;
-using UnityEngine.UI;
-
 public class ThreatStack : ScriptableStat
 {
-    public override void Tick(PlayerState playerState){
-        
+    public override void Initialize(){
+        description = "Threat\nThe Player with the most threat will become the main target for the next attack";
     }
 }
