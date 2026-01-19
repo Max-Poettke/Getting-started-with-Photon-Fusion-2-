@@ -18,19 +18,20 @@ public class HoverUIElement : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         scaleOnHover = _scaleOnHover;
         scaleDuration = _scaleDuration;
         colorOnHover = _colorOnHover;
-        colorOnExit = _colorOnExit;
+        image.color = _colorOnExit;
     }
 
     private void Start()
     {
         image = GetComponent<Image>();
+        colorOnExit = image.color;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         colorOnExit = image.color;
-        KillTween(ref scaleTween);
-        KillTween(ref colorTween);
+        KillTween(ref scaleTween, true);
+        KillTween(ref colorTween, true);
         scaleTween = transform
             .DOScale(scaleOnHover, scaleDuration)
             .SetEase(Ease.OutQuad)
@@ -42,8 +43,8 @@ public class HoverUIElement : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        KillTween(ref scaleTween);
-        KillTween(ref colorTween);
+        KillTween(ref scaleTween, true);
+        KillTween(ref colorTween, true);
         scaleTween = transform
             .DOScale(1f, scaleDuration)
             .SetEase(Ease.OutQuad)

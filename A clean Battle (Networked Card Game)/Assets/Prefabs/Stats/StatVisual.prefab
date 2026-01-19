@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1862116602193964269}
   - component: {fileID: 2789141913230186175}
   - component: {fileID: 4883799470888351407}
-  - component: {fileID: 5727116801921933489}
+  - component: {fileID: 8307301070159608305}
   m_Layer: 5
   m_Name: StatVisual
   m_TagString: Untagged
@@ -38,8 +38,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -10.000082, y: -49.99999}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: -10.000061, y: -50}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &685804387086610284
 CanvasRenderer:
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5882353, g: 0.23529413, b: 0.23529413, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -93,8 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   scaleOnHover: 0.92
   scaleDuration: 0.2
-  colorOnHover: {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
-  colorOnExit: {r: 1, g: 1, b: 1, a: 1}
+  colorOnHover: {r: 1, g: 0.504717, b: 0.504717, a: 1}
 --- !u!114 &4883799470888351407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +111,7 @@ MonoBehaviour:
   rotationSpeed: 10
   distanceBeforeRealign: 10
   maxAngle: 10
---- !u!114 &5727116801921933489
+--- !u!114 &8307301070159608305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
   alpha: 1
-  theme: {fileID: 0}
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 1
 --- !u!1 &5052952063443066803
 GameObject:
@@ -160,10 +159,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2056743633822006372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 40}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2219620467410443555
 CanvasRenderer:
@@ -202,8 +201,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289323519
-  m_fontColor: {r: 1, g: 0.882353, b: 0.6627451, a: 1}
+    rgba: 4286961631
+  m_fontColor: {r: 0.8745099, g: 0.8431373, b: 0.52156866, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -220,8 +219,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -278,5 +277,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThemeGuide
   alpha: 1
-  theme: {fileID: 11400000, guid: c6496045f89ac1a43b3fc16b8bc0d04f, type: 2}
+  theme: {fileID: 11400000, guid: 1bcfca9ec8080db419ccee4655414658, type: 2}
   type: 2

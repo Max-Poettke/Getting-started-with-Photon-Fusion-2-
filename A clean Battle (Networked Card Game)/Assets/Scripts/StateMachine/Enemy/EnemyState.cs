@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class EnemyState : MonoBehaviour
 {
@@ -16,14 +17,19 @@ public class EnemyState : MonoBehaviour
     public List<ThreatStack> threatStacks;
     public DeckData deck;
 
+    [Header("Animations")]
+    [SerializeField] private Color damageColor = Color.red;
+    [SerializeField] private Color blockedColor = Color.blue;
+
     [Header("UI Components")]
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
+    [SerializeField] private EntityAnimation entityAnimation;
 
     public bool IsAlive = true;
 
-    public event Action OnTakeDamage;
-    public event Action OnDie;
+    public UnityEvent OnTakeDamage = new UnityEvent();
+    public UnityEvent OnDie = new UnityEvent();
 
     public StatHelper statHelper;
 
@@ -32,6 +38,7 @@ public class EnemyState : MonoBehaviour
         healthSlider.maxValue = MaxHealth;
         healthSlider.value = Health;
         healthText.text = Health.ToString();
+        entityAnimation = transform.GetComponent<EntityAnimation>();
     }
 
     private int tickInXRounds = 1;
@@ -103,7 +110,14 @@ public class EnemyState : MonoBehaviour
         Health -= _damageAmount;
         Debug.Log("Health: " + Health);
         UpdateUI();
-        OnTakeDamage?.Invoke();
+        
+        if(_damageAmount > 0){
+            entityAnimation.AnimateTakeDamage(damageColor);
+            OnTakeDamage?.Invoke();
+        } else {
+            entityAnimation.AnimateTakeDamage(blockedColor);
+        }
+
         if(Health <= 0){
             Die();
         }

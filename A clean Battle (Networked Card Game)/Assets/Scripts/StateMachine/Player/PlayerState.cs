@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class PlayerState : MonoBehaviour
 {
@@ -20,23 +21,20 @@ public class PlayerState : MonoBehaviour
     public List<ScriptableStat> stats = new List<ScriptableStat>();
     public bool IsAlive = true;
 
-    public event Action OnTakeDamage;
-    public event Action OnDie;
+    public UnityEvent OnTakeDamage = new UnityEvent();
+    public UnityEvent OnDie = new UnityEvent();
+
+    [Header("Animations")]
+    [SerializeField] private Color damageColor = Color.red;
+    [SerializeField] private Color blockedColor = Color.blue;
 
     [Header("UI Components")]
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text threatText;
     [SerializeField] private TMP_Text actionsText;
-    [SerializeField] private Transform shieldPosition;
-    [SerializeField] private Transform poisonPosition;
-    [SerializeField] private Transform threatPosition;
     [SerializeField] private StatHelper statHelper;
-
-    [Header("Prefabs")]
-    [SerializeField] private GameObject shieldPrefab;
-    [SerializeField] private GameObject poisonPrefab;
-    [SerializeField] private GameObject threatPrefab;
+    [SerializeField] private EntityAnimation entityAnimation;
 
     private int handSize;
     private int currentHandSize;
@@ -47,6 +45,7 @@ public class PlayerState : MonoBehaviour
         healthSlider.value = Health;
         healthText.text = Health.ToString();
         statHelper = transform.GetComponentInChildren<StatHelper>();
+        entityAnimation = transform.GetComponent<EntityAnimation>();
     }
 
     private int tickInXRounds = 0;
@@ -130,7 +129,12 @@ public class PlayerState : MonoBehaviour
         Health -= _damageAmount;
         Debug.Log("Health: " + Health);
         UpdateUI();
-        OnTakeDamage?.Invoke();
+        if(_damageAmount > 0){
+            entityAnimation.AnimateTakeDamage(damageColor);
+            OnTakeDamage?.Invoke();
+        } else {
+            entityAnimation.AnimateTakeDamage(blockedColor);
+        }
         if(Health <= 0){
             Die();
         }

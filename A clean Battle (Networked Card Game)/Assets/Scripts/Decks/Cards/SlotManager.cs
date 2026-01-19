@@ -54,7 +54,7 @@ public class SlotManager : MonoBehaviour
     public void SpawnEnemyCard(ScriptableCard cardData){
         Transform _slotParent = null;
         foreach(var slotParent in enemyHandSlots){
-            Debug.Log("Slot parent child count: " + slotParent.childCount);
+            //Debug.Log("Slot parent child count: " + slotParent.childCount);
             if(slotParent.childCount == 0){
                 _slotParent = slotParent;
                 break;
@@ -146,11 +146,11 @@ public class SlotManager : MonoBehaviour
     public void BeginDrag(Card card){
         draggedCard = card;
         isDragging = true;
-        Debug.Log("Dragging card: " + draggedCard.name);
+        //Debug.Log("Dragging card: " + draggedCard.name);
     }
 
     public void EndDrag(Card card){
-        Debug.Log("End dragging card: " + card.name);
+        //Debug.Log("End dragging card: " + card.name);
         draggedCard = null;
         isDragging = false;
         TryPlayCard(card);
@@ -238,6 +238,10 @@ public class SlotManager : MonoBehaviour
         PlaySlots.Add(card.transform.parent);
         card.cardVisual.transform.SetParent(playedCardVisualParent);
         Destroy(playEnabledParentParent.gameObject);
+
+        
+        HoverInfo hoverInfo = card.gameObject.AddComponent<HoverInfo>();
+        hoverInfo.Descriptions.Add(card.CardData.name.ToUpper() + "\n" + card.CardData.cardDescription);
 
         card.transform.parent.localScale = Vector3.one * 0.7f;
         card.PlayCard();
@@ -343,7 +347,7 @@ public class SlotManager : MonoBehaviour
 
     private void Swap(int index){
         if(draggedCard == null) return;
-        Debug.Log("Swapping cards: " + draggedCard.name + " and " + Cards[index].name);
+        //Debug.Log("Swapping cards: " + draggedCard.name + " and " + Cards[index].name);
         var draggedParent = draggedCard.transform.parent;
         var distanceBetweenParents = Cards[index].transform.parent.position.x - draggedParent.position.x;
         draggedCard.transform.parent = Cards[index].transform.parent;
