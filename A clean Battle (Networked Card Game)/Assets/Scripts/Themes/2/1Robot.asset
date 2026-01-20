@@ -18,4 +18,4 @@ MonoBehaviour:
   ActionColor: {r: 0.85098046, g: 0, b: 0.16470589, a: 1}
   ThreatColor: {r: 0.93725497, g: 0.14117648, b: 0.23529413, a: 1}
   OutlineColor: {r: 0, g: 0.1137255, b: 0.050980397, a: 1}
-  UnderlayColor: {r: 0.85098046, g: 0, b: 0.16470589, a: 0}
+  UnderlayColor: {r: 0.4431373, g: 0.7294118, b: 0.6117647, a: 1}

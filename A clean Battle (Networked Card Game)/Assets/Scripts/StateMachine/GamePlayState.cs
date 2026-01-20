@@ -34,9 +34,9 @@ public class GamePlayState : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    private void StartGame()
     {
-        PlayerStates = FindObjectsOfType<PlayerState>().ToList();
+        //PlayerStates = FindObjectsOfType<PlayerState>().ToList();
         EnemyState = FindObjectOfType<EnemyState>();
 
         if (PlayerStates.Count == 0 || EnemyState == null)

@@ -51,7 +51,7 @@ public class ThemeGuide : MonoBehaviour
         // TMP SDF handling
         if (tmp != null)
         {
-            if(tmp.fontMaterial == null) return;
+            if(tmp.fontSharedMaterial == null) return;
             if(type == Type.Text) {
                 ApplyToTMP(tmp, color);
                 return;

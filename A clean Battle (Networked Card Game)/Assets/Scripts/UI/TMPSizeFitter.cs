@@ -8,20 +8,30 @@ public class TMPSizeFitter : MonoBehaviour
     private RectTransform m_TMPRectTransform;
     private RectTransform m_RectTransform;
     private float m_PreferredHeight;
+    private float m_PreferredWidth;
 
+    [SerializeField] private bool fitHeight = true;
+    [SerializeField] private bool fitWidth = true;
+    [SerializeField] private float extraHeight = 10f;
+    [SerializeField] private float extraWidth = 10f;
 
     public float PreferredHeight { 
         get { 
             return m_PreferredHeight; 
             } 
-        }
+    }
 
     public RectTransform TMPRectTransform { 
         get { 
             return m_TMPRectTransform; 
             } 
-        }
-    
+    }
+
+    public float PreferredWidth { 
+        get { 
+            return m_PreferredWidth; 
+            } 
+    }
 
     public RectTransform rectTransform { 
         get { 
@@ -46,20 +56,31 @@ public class TMPSizeFitter : MonoBehaviour
         if(TextMeshPro == null) return;
 
         m_PreferredHeight = TextMeshPro.preferredHeight;
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, m_PreferredHeight + 10);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, m_PreferredHeight + extraHeight);
+    }
+
+    private void SetWidth(){
+        if(TextMeshPro == null) return;
+        m_PreferredWidth = TextMeshPro.preferredWidth;
+        rectTransform.sizeDelta = new Vector2(m_PreferredWidth + extraWidth, rectTransform.sizeDelta.y);
     }
 
     private void OnEnable(){
-        SetHeight();
+        if(fitHeight) SetHeight();
+        if(fitWidth) SetWidth();
     }
 
     private void Start(){
-        SetHeight();
+        if(fitHeight) SetHeight();
+        if(fitWidth) SetWidth();
     }
 
     private void Update(){
-        if(PreferredHeight != TextMeshPro.preferredHeight){
+        if(fitHeight && PreferredHeight != TextMeshPro.preferredHeight){
             SetHeight();
+        }
+        if(fitWidth && PreferredWidth != TextMeshPro.preferredWidth){
+            SetWidth();
         }
     }
 

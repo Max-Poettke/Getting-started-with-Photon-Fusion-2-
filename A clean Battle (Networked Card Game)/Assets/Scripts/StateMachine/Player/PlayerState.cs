@@ -13,6 +13,7 @@ public class PlayerState : EntityState
     public DeckData deck;
 
     [Header("UI")]
+    [SerializeField] private TMP_Text nickNameText;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text threatText;
@@ -32,6 +33,7 @@ public class PlayerState : EntityState
 
     protected override void InitializeUI()
     {
+        nickNameText.text = NickName;
         healthSlider.maxValue = MaxHealth;
         healthSlider.value = Health;
         healthText.text = Health.ToString();
@@ -41,6 +43,7 @@ public class PlayerState : EntityState
 
     protected override void UpdateUI()
     {
+        nickNameText.text = NickName;
         healthSlider.value = Health;
         healthText.text = Health.ToString();
         actionsText.text = $"A: {Actions}";
